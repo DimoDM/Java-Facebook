@@ -18,12 +18,28 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public void register(RegisterDTO registerDTO) {
 
-        UserLoginData newUser = new UserLoginData();
-        newUser.setEmail(registerDTO.getEmail());
-        newUser.setUsername(registerDTO.getUsername());
-        newUser.setPhoneNumber(registerDTO.getPhone());
-        newUser.setPassword(registerDTO.getPassword());
+        if(registerDTO.getPassword().equals(registerDTO.getPasswordTest()) && !registerDTO.getPassword().isEmpty()) {
 
-        userRepository.save(newUser);
+            if(!registerDTO.getEmail().contains("@")) {
+
+            }
+
+            if(registerDTO.getUsername().isEmpty()) {
+
+            }
+
+            if(registerDTO.getPhone().isEmpty()) {
+
+            }
+
+            UserLoginData newUser = new UserLoginData();
+            newUser.setEmail(registerDTO.getEmail());
+            newUser.setUsername(registerDTO.getUsername());
+            newUser.setPhoneNumber(registerDTO.getPhone());
+            newUser.setPassword(registerDTO.getPassword());
+
+            userRepository.save(newUser);
+        }
+
     }
 }
