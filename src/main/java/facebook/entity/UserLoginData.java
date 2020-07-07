@@ -4,7 +4,7 @@ package facebook.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "UserLoginData")
+@Table(name = "user_login_data")
 public class UserLoginData {
 
     @Id
