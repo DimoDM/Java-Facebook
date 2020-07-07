@@ -1,7 +1,7 @@
 package facebook.service.implementation;
 
-import facebook.dto.RegisterDTO;
-import facebook.entity.UserLoginData;
+import facebook.dto.*;
+import facebook.entity.*;
 import facebook.repository.UserLoginDataRepository;
 import facebook.service.contract.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;

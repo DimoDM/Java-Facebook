@@ -1,6 +1,6 @@
 package facebook.repository;
 
-import facebook.entity.UserLoginData;
+import facebook.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

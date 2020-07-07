@@ -1,6 +1,6 @@
 package facebook.service.contract;
 
-import facebook.dto.RegisterDTO;
+import facebook.dto.*;
 
 public interface RegisterService {
 

@@ -28,13 +28,13 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-        testCompile group: 'junit', name: 'junit', version: '4.12'
-        compile 'com.amazonaws:aws-java-sdk:1.11.60'
-        compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
-        compile files('mylibraries/ojdbc7.jar')
-        compile files('mylibraries/postgresql-42.1.4.jar')
-        compile files('mylibraries/mssql-jdbc-6.2.1.jre8.jar')
-    }
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.amazonaws:aws-java-sdk:1.11.60'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+    compile files('mylibraries/ojdbc7.jar')
+    compile files('mylibraries/postgresql-42.1.4.jar')
+    compile files('mylibraries/mssql-jdbc-6.2.1.jre8.jar')
+}
 jar {
     from {
         configurations.compile.collect {

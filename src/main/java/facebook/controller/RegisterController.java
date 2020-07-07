@@ -1,16 +1,12 @@
 package facebook.controller;
 
-
 import facebook.dto.RegisterDTO;
-import facebook.entity.UserLoginData;
-import facebook.service.contract.RegisterService;
 import facebook.service.implementation.RegisterServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -29,12 +25,26 @@ public class RegisterController extends BaseController {
 //        return modelAndView;
 //    }
 
+
+    @GetMapping("/home")
+    public ModelAndView test(){
+        return send("index.html");
+    }
+
     @PostMapping("/register")
     public ModelAndView register(@ModelAttribute RegisterDTO registerDTO) {
 
 
         registerService.register(registerDTO);
-        return send("index.html");
+        return send("facebook.html");
     }
+
+    @GetMapping("/register")
+    public ModelAndView registerGet() {
+
+        return send("facebook.html");
+    }
+
+
 
 }
