@@ -5,7 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class BaseController {
 
     protected ModelAndView send(String viewName) {
-        return new ModelAndView(viewName);
+        return new ModelAndView(viewName + ".html");
     }
 
     protected ModelAndView send(String viewName, String objectName, Object object) {

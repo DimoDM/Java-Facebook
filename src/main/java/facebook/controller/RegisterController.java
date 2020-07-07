@@ -28,7 +28,7 @@ public class RegisterController extends BaseController {
 
     @GetMapping("/home")
     public ModelAndView test(){
-        return send("index.html");
+        return send("index");
     }
 
     @PostMapping("/register")
@@ -36,13 +36,13 @@ public class RegisterController extends BaseController {
 
 
         registerService.register(registerDTO);
-        return send("facebook.html");
+        return send("facebook");
     }
 
     @GetMapping("/register")
     public ModelAndView registerGet() {
 
-        return send("facebook.html");
+        return send("facebook");
     }
 
 
