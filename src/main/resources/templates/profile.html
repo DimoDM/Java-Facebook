@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<link rel="stylesheet" th:href="@{css/profile-style.css}">
+<link rel="stylesheet" th:href="@{css/user-menu-style.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+    <div>
+        <div class="menu">
+            <form action="" >
+                <input type="text" name="search-bar" class="search-bar" placeholder="Search">
+                <button type="submit" class="fa fa-search search-button"></button>
+            </form>
+            <div class="user-buttons">
+                <a th:href="@{/1}">
+                     <img th:src="${user.getProfilePicture()}" alt="User Profile Picture" class = "user-bar-photo">
+                    <span th:text="${user.getFirstName()}"></span>
+                </a>
+                <a th:href="@{/home}">Home</a>
+                <button class="fa fa-user"></button>
+                <button class="fa fa-envelope"></button>
+                <button class="fa fa-bell"></button>
+                <button class="fa fa-bars"></button>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="profile-base-info">
+                <div class="cover">
+                    <img th:src="${user.getBackPicture()}" alt="Cover Photo" class="cover-photo">
+                </div>
+                <img th:src="${user.getProfilePicture()}" alt="profile pic" class="profile-pic">
+                <h2 th:text="${user.getFirstName() + ' ' + user.getSecondName()}"></h2>
+            </div>
+            <div class="profile-menu">
+                <div class="profile-links">
+                    <a href="#">About</a>
+                    <a href="#">Friends</a>
+                    <a href="#">Photos</a>
+                    <a href="#">More</a>
+                </div>
+            </div>
+            <div>
+                <div class="profile-features">
+                    <div class="uss">
+    
+                        <div class="profile-details">
+                            <p>About</p>
+                        </div>
+                        <div class="profile-friends">
+                            <p>Friends</p>
+                        </div>
+                        <div class="profile-photos">
+                            <p>Photos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-feed">
+                    <div class="post-creator">
+                        <form>
+
+                            <div class="post-info-div">
+                                <img th:src="${user.getProfilePicture()}" alt="Profile picture" class="post-pp">
+                                <input type="text" placeholder="Say something to your friends" class="post-text-field">
+                            </div>
+                            <div class="post-buttons">
+                                <button>Image</button>
+                                <button>Tag Friend</button>
+                                <button type="submit">Post</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="profile-posts">
+                        <img th:src="${user.getProfilePicture()}" alt="Profile picture" class="post-pp">
+                        <p th:if = "${}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        </div>
+    </div>
+</body>
+</html>

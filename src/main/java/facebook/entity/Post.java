@@ -17,7 +17,6 @@ public class Post {
     @Column(name = "text")
     private String text;
 
-
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     private User poster;
 
@@ -26,6 +25,9 @@ public class Post {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
     private Set<Like> likes;
+
+    public Post() {
+    }
 
     public Set<Comment> getComments() {
         return comments;
@@ -51,11 +53,9 @@ public class Post {
         return poster;
     }
 
+
     public void setPoster(User poster) {
         this.poster = poster;
-    }
-
-    public Post() {
     }
 
     public long getId() {

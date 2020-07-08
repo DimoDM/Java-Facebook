@@ -1,7 +1,9 @@
 package facebook.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
+@Controller
 public class BaseController {
 
     protected ModelAndView send(String viewName) {
@@ -12,5 +14,9 @@ public class BaseController {
         ModelAndView modelAndView = new ModelAndView(viewName + ".html");
         modelAndView.addObject(objectName, object);
         return modelAndView;
+    }
+
+    protected ModelAndView redirect(String endPoint) {
+        return new ModelAndView("redirect:" + endPoint);
     }
 }
