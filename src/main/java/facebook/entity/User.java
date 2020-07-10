@@ -29,6 +29,16 @@ public class User {
     @Column(name = "back_picture", unique = true)
     private String backPicture;
 
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "job")
+    private String job;
+
+    @Column(name = "school")
+    private String school;
+
+
     //Тука няма да има нищо предполагам
     //Остават приятелите и снимките
 
@@ -151,5 +161,29 @@ public class User {
 
     public void setBackPicture(String backPicture) {
         this.backPicture = backPicture;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
     }
 }

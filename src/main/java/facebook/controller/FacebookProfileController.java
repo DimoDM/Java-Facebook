@@ -26,6 +26,7 @@ public class FacebookProfileController extends BaseController{
     @GetMapping("/{id}")
     public ModelAndView profile(@PathVariable("id") Long id){
         User userProfile = profileService.goToProfile(id);
+        userProfile.getSchool();
         return send("profile","user",userProfile);
     }
 

@@ -47,6 +47,10 @@
     
                         <div class="profile-details">
                             <p>About</p>
+                            <p th:if="${user.getCity() != null}" th:text="${user.getCity()}"></p>
+                            <p th:if="${user.getDateOfBirth() != null}" th:text="${user.getDateOfBirth()}"></p>
+                            <p th:if="${user.getPhoneNumber() != null}" th:text="${user.getPhoneNumber()}"></p>
+                            <p th:if="${user.getSchool() != null}" th:text="${user.getSchool()}"></p>
                         </div>
                         <div class="profile-friends">
                             <p>Friends</p>
@@ -73,7 +77,6 @@
                     </div>
                     <div class="profile-posts">
                         <img th:src="${user.getProfilePicture()}" alt="Profile picture" class="post-pp">
-                        <p th:if = "${}"></p>
                     </div>
                 </div>
             </div>
