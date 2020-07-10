@@ -48,7 +48,7 @@ body{
 
 .profile-features{
     width: 350px;
-    height: 1000px;
+
     position: absolute;
     top: 500px;
     left: 10px;
@@ -88,6 +88,14 @@ body{
     background-color: white;
 }
 
+.profile-photos img{
+    width: 33%;
+}
+
+.profile-photos div{
+    width: auto;
+}
+
 .profile-feed{
     width: 700px;
     position: absolute;
@@ -123,11 +131,11 @@ body{
     background-color:rgba(35, 94, 255, 0.192);
 }
 .post-creator{
-    width: 650px;
+    width: 100%;
     min-height: 200px;
     background-color: white;
     border: gray 1px solid;
-    margin: auto;
+    margin-bottom: 20px;
 }
 
 .post-pp{
@@ -147,7 +155,7 @@ body{
 }
 
 
-.post-buttons button{
+.post-creator-buttons button{
     border: none;
     width: 100px;
     cursor: pointer;
@@ -156,8 +164,58 @@ body{
     border: rgb(35, 93, 255) 1px solid;
 }
 
-.post-buttons{
+.post-creator-buttons{
     margin-left: 150px ;
+}
+
+.profile-posts{
+    width: 100%;
+    background: white;
+    border: 1px gray solid;
+    margin: 10px 0;
+
+}
+
+.profile-posts div{
+    display: inline-block;
+}
+
+.post-user-info{
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.post-user-info h3{
+    float: left;
+    margin-top: 40px ;
+}
+
+.post-content img{
+    width: 96%;
+    margin: 0 2%;
+}
+
+.post-content p{
+   padding-left: 10px;
+    width: 100%;
+}
+
+.post-content{
+    width: 100%;
+}
+
+.post-buttons{
+    width: auto;
+    margin-left: 180px;
+}
+
+.post-buttons button{
+    width: 100px;
+    cursor: pointer;
+    height: 30px;
+    background-color: rgb(11, 79, 224);
+    border: rgb(35, 93, 255) 1px solid;
+    margin: 10px 0;
 }
 
 

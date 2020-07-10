@@ -20,6 +20,12 @@ public class Post {
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     private User poster;
 
+    @Column(name = "imager_url")
+    private String imageURL;
+
+    @Column(name = "status")
+    private Integer status;//1-Visible for all; 2-Visible to friends; 3-visible only for the user
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
     private Set<Comment> comments;
 
@@ -80,5 +86,21 @@ public class Post {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

@@ -17,19 +17,18 @@
 
 .menu{
     background-color: rgb(35, 93, 255);
-    padding: 10px;
     width: 100%;
     position: fixed;
     margin: auto;
     top: 0;
     left: 0;
-    height: 20px;
+    height: 40px;
     z-index: 2;
 }
 
 .user-buttons{
     position: absolute;
-    top: 20%;
+    top: 8px;
     right:20%;
 }
 
@@ -70,5 +69,7 @@
 
 .user-bar-photo {
     width: 25px;
+    height: 25px;
+    float: left;
     border-radius: 100%;
 }

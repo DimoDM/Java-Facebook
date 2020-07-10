@@ -55,16 +55,18 @@
                 </div>
                 <div class="profile-friends">
                     <h3>Friends</h3>
-<!--                    this needs user's friends-->
-<!--                    <div th:with="friendCount = ${0}" th:if="${user.getFriends().size() > 0 && ${friendCount <= 9}}" th:each="friend : ${user.getFriends()}">-->
-<!--                        <a th: th:href="${/} + ${friend.getUserId()}">-->
-<!--                            <img th:src="friend.getUser().getProfilePicture()" alt="">-->
-<!--                            <span th:with="friendCount++" th:text="${friend.getUser().getFirstName() + ' ' + ${friend.getUser().getSecondName()}}"></span>-->
-<!--                        </a>-->
-<!--                    </div>-->
+                    <!--                    this needs user's friends-->
+                    <!--                    <div th:with="friendCount = ${0}" th:if="${user.getFriends().size() > 0 && ${friendCount <= 9}}" th:each="friend : ${user.getFriends()}">-->
+                    <!--                        <a th: th:href="${/} + ${friend.getUserId()}">-->
+                    <!--                            <img th:src="friend.getUser().getProfilePicture()" alt="">-->
+                    <!--                            <span th:with="friendCount++" th:text="${friend.getUser().getFirstName() + ' ' + ${friend.getUser().getSecondName()}}"></span>-->
+                    <!--                        </a>-->
+                    <!--                    </div>-->
                 </div>
                 <div class="profile-photos">
                     <h3>Photos</h3>
+                        <img th:with="photosCount = ${0}" th:each="post : ${posts}" th:if="${post.getImageURL() != null && photosCount<=9}" th:src="${post.getImageURL()}"  alt="Image" >
+                    </div>
                 </div>
             </div>
             <div class="profile-feed">
@@ -74,15 +76,29 @@
                             <img th:src="${user.getProfilePicture()}" alt="Profile picture" class="post-pp">
                             <input type="text" placeholder="Say something to your friends" class="post-text-field">
                         </div>
-                        <div class="post-buttons">
+                        <div class="post-creator-buttons">
                             <button>Image</button>
                             <button>Tag Friend</button>
                             <button type="submit">Post</button>
                         </div>
                     </form>
                 </div>
-                <div class="profile-posts">
-                    <img th:src="${user.getProfilePicture()}" alt="Profile picture" class="post-pp">
+                <div th:each="post : ${posts}">
+                    <div class="profile-posts">
+                        <div class="post-user-info">
+                            <img th:src="${user.getProfilePicture()}" alt="Profile picture" class="post-pp">
+                            <h3 th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></h3>
+                        </div>
+                        <div class="post-content">
+                            <p th:text="${post.getText()}"></p>
+                            <img th:if="${post.getImageURL() != null}" th:src="${post.getImageURL()}" alt="Image">
+                        </div>
+                        <div class="post-buttons">
+                            <button>Like</button>
+                            <button>Comment</button>
+                            <button>Share</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
