@@ -23,11 +23,12 @@ public class User {
     @Column(name = "date_of_birth")
     private String dateOfBirth;
 
-    @Column(name = "profile_picture", unique = true)
-    private String profilePicture; //This string will store the path to the picture
+    @OneToOne
+    private Picture profilePicture;
+    //This string will store the path to the picture
 
-    @Column(name = "back_picture", unique = true)
-    private String backPicture;
+    @OneToOne
+    private Picture backPicture;
 
     @Column(name = "city")
     private String city;
@@ -59,6 +60,9 @@ public class User {
     joinColumns = { @JoinColumn(name = "user_id")},
     inverseJoinColumns = {@JoinColumn(name = "page_id")})
     private Set<Page> followedPages;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pictureHolder")
+    private Set<Picture> profilePictures;
 
     public Set<Post> getPosts() {
         return posts;
@@ -147,19 +151,19 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getProfilePicture() {
+    public Picture getProfilePicture() {
         return profilePicture;
     }
 
-    public void setProfilePicture(String profilePicture) {
+    public void setProfilePicture(Picture profilePicture) {
         this.profilePicture = profilePicture;
     }
 
-    public String getBackPicture() {
+    public Picture getBackPicture() {
         return backPicture;
     }
 
-    public void setBackPicture(String backPicture) {
+    public void setBackPicture(Picture backPicture) {
         this.backPicture = backPicture;
     }
 
@@ -185,5 +189,13 @@ public class User {
 
     public void setSchool(String school) {
         this.school = school;
+    }
+
+    public Set<Picture> getProfilePictures() {
+        return profilePictures;
+    }
+
+    public void setProfilePictures(Set<Picture> profilePictures) {
+        this.profilePictures = profilePictures;
     }
 }

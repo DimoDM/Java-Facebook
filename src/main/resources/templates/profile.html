@@ -15,7 +15,8 @@
         </form>
         <div class="user-buttons">
             <a th:href="@{/1}">
-                <img th:src="${user.getProfilePicture()}" alt="User Profile Picture" class="user-bar-photo">
+                <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}" alt="User Profile Picture" class="user-bar-photo">
+                <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt="" class="user-bar-photo">
                 <span th:text="${user.getFirstName()}"></span>
             </a>
             <a th:href="@{/home}">Home</a>
@@ -28,9 +29,11 @@
     <div class="main-container">
         <div class="profile-base-info">
             <div class="cover">
-                <img th:src="${user.getBackPicture()}" alt="Cover Photo" class="cover-photo">
+                <img th:if="${user.getBackPicture()!=null}" th:src="${user.getBackPicture().getImageURL()}" alt="Cover Photo" class="cover-photo">
+                <img th:if="${user.getBackPicture() == null}" src="../images/cover-banner.png" alt="" class="cover-photo">
             </div>
-            <img th:src="${user.getProfilePicture()}" alt="profile pic" class="profile-pic">
+            <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}" alt="profile pic" class="profile-pic">
+            <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt="" class="profile-pic">
             <h2 th:text="${user.getFirstName() + ' ' + user.getSecondName()}"></h2>
         </div>
         <div class="profile-menu">
@@ -65,7 +68,7 @@
                 </div>
                 <div class="profile-photos">
                     <h3>Photos</h3>
-                        <img th:with="photosCount = ${0}" th:each="post : ${posts}" th:if="${post.getImageURL() != null && photosCount<=9}" th:src="${post.getImageURL()}"  alt="Image" >
+                        <img th:each="picture : ${user.getProfilePictures()}" th:src="${picture.getImageURL()}"  alt="Image" >
                     </div>
                 </div>
             </div>
@@ -73,7 +76,8 @@
                 <div class="post-creator">
                     <form>
                         <div class="post-info-div">
-                            <img th:src="${user.getProfilePicture()}" alt="Profile picture" class="post-pp">
+                            <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}" alt="Profile picture" class="post-pp">
+                            <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt="" class="post-pp">
                             <input type="text" placeholder="Say something to your friends" class="post-text-field">
                         </div>
                         <div class="post-creator-buttons">
@@ -86,12 +90,13 @@
                 <div th:each="post : ${posts}">
                     <div class="profile-posts">
                         <div class="post-user-info">
-                            <img th:src="${user.getProfilePicture()}" alt="Profile picture" class="post-pp">
+                            <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}" alt="Profile picture" class="post-pp">
+                            <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt="" class="post-pp">
                             <h3 th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></h3>
                         </div>
                         <div class="post-content">
                             <p th:text="${post.getText()}"></p>
-                            <img th:if="${post.getImageURL() != null}" th:src="${post.getImageURL()}" alt="Image">
+                            <img th:if="${post.getPicture() != null}" th:src="${post.getPicture().getImageURL()}" alt="Image">
                         </div>
                         <div class="post-buttons">
                             <button>Like</button>

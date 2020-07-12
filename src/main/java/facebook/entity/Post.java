@@ -14,14 +14,14 @@ public class Post {
     @Column(name = "image_id", nullable = false)
     private long imageId;
 
+    @OneToOne
+    private Picture picture;
+
     @Column(name = "text")
     private String text;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     private User poster;
-
-    @Column(name = "imager_url")
-    private String imageURL;
 
     @Column(name = "status")
     private Integer status;//1-Visible for all; 2-Visible to friends; 3-visible only for the user
@@ -33,6 +33,14 @@ public class Post {
     private Set<Like> likes;
 
     public Post() {
+    }
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 
     public Set<Comment> getComments() {
@@ -86,14 +94,6 @@ public class Post {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
     }
 
     public Integer getStatus() {

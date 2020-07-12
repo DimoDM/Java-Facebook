@@ -1,6 +1,5 @@
 package facebook.service.implementation;
 
-import facebook.entity.PictureForPosts;
 import facebook.entity.Post;
 import facebook.entity.User;
 import facebook.repository.PostRepository;
@@ -9,7 +8,6 @@ import facebook.service.contract.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 @Service
