@@ -27,8 +27,10 @@ public class FacebookProfileController extends BaseController{
     public ModelAndView profile(@PathVariable("id") Long id, ModelAndView modelAndView){
         User userProfile = profileService.goToProfile(id);
         Set<Post> userPosts = profileService.getUserPosts(userProfile);
+        Set<User> userFriends = userProfile.getUserFriends();
         modelAndView.setViewName("profile.html");
         modelAndView.addObject("user",userProfile);
+        modelAndView.addObject("friends",userFriends);
         modelAndView.addObject("posts",userPosts);
         return modelAndView;
     }

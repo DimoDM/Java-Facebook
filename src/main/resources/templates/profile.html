@@ -15,8 +15,10 @@
         </form>
         <div class="user-buttons">
             <a th:href="@{/1}">
-                <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}" alt="User Profile Picture" class="user-bar-photo">
-                <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt="" class="user-bar-photo">
+                <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}"
+                     alt="User Profile Picture" class="user-bar-photo">
+                <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
+                     class="user-bar-photo">
                 <span th:text="${user.getFirstName()}"></span>
             </a>
             <a th:href="@{/home}">Home</a>
@@ -29,10 +31,13 @@
     <div class="main-container">
         <div class="profile-base-info">
             <div class="cover">
-                <img th:if="${user.getBackPicture()!=null}" th:src="${user.getBackPicture().getImageURL()}" alt="Cover Photo" class="cover-photo">
-                <img th:if="${user.getBackPicture() == null}" src="../images/cover-banner.png" alt="" class="cover-photo">
+                <img th:if="${user.getBackPicture()!=null}" th:src="${user.getBackPicture().getImageURL()}"
+                     alt="Cover Photo" class="cover-photo">
+                <img th:if="${user.getBackPicture() == null}" src="../images/cover-banner.png" alt=""
+                     class="cover-photo">
             </div>
-            <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}" alt="profile pic" class="profile-pic">
+            <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}"
+                 alt="profile pic" class="profile-pic">
             <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt="" class="profile-pic">
             <h2 th:text="${user.getFirstName() + ' ' + user.getSecondName()}"></h2>
         </div>
@@ -58,56 +63,61 @@
                 </div>
                 <div class="profile-friends">
                     <h3>Friends</h3>
-                    <!--                    this needs user's friends-->
-                    <!--                    <div th:with="friendCount = ${0}" th:if="${user.getFriends().size() > 0 && ${friendCount <= 9}}" th:each="friend : ${user.getFriends()}">-->
-                    <!--                        <a th: th:href="${/} + ${friend.getUserId()}">-->
-                    <!--                            <img th:src="friend.getUser().getProfilePicture()" alt="">-->
-                    <!--                            <span th:with="friendCount++" th:text="${friend.getUser().getFirstName() + ' ' + ${friend.getUser().getSecondName()}}"></span>-->
-                    <!--                        </a>-->
-                    <!--                    </div>-->
+                    <div>
+                        <a th:each="friend : ${friends}" th:href="${'/' + friend.getId()}">
+                            <img th:if="${friend.getProfilePicture() != null}" th:src="${friend.getProfilePicture().getImageURL()}" alt="">
+                            <img th:if="${friend.getProfilePicture() == null}" src="../images/profile-pic.png" alt="">
+                            <p th:text="${friend.getFirstName() + ' ' + friend.getSecondName()}"></p>
+                        </a>
+                    </div>
                 </div>
                 <div class="profile-photos">
                     <h3>Photos</h3>
-                        <img th:each="picture : ${user.getProfilePictures()}" th:src="${picture.getImageURL()}"  alt="Image" >
-                    </div>
+                    <img th:each="picture : ${user.getProfilePictures()}" th:src="${picture.getImageURL()}" alt="Image">
                 </div>
             </div>
-            <div class="profile-feed">
-                <div class="post-creator">
-                    <form>
-                        <div class="post-info-div">
-                            <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}" alt="Profile picture" class="post-pp">
-                            <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt="" class="post-pp">
-                            <input type="text" placeholder="Say something to your friends" class="post-text-field">
-                        </div>
-                        <div class="post-creator-buttons">
-                            <button>Image</button>
-                            <button>Tag Friend</button>
-                            <button type="submit">Post</button>
-                        </div>
-                    </form>
-                </div>
-                <div th:each="post : ${posts}">
-                    <div class="profile-posts">
-                        <div class="post-user-info">
-                            <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}" alt="Profile picture" class="post-pp">
-                            <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt="" class="post-pp">
-                            <h3 th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></h3>
-                        </div>
-                        <div class="post-content">
-                            <p th:text="${post.getText()}"></p>
-                            <img th:if="${post.getPicture() != null}" th:src="${post.getPicture().getImageURL()}" alt="Image">
-                        </div>
-                        <div class="post-buttons">
-                            <button>Like</button>
-                            <button>Comment</button>
-                            <button>Share</button>
-                        </div>
+        </div>
+        <div class="profile-feed">
+            <div class="post-creator">
+                <form>
+                    <div class="post-info-div">
+                        <img th:if="${user.getProfilePicture()!=null}"
+                             th:src="${user.getProfilePicture().getImageURL()}" alt="Profile picture" class="post-pp">
+                        <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
+                             class="post-pp">
+                        <input type="text" placeholder="Say something to your friends" class="post-text-field">
+                    </div>
+                    <div class="post-creator-buttons">
+                        <button>Image</button>
+                        <button>Tag Friend</button>
+                        <button type="submit">Post</button>
+                    </div>
+                </form>
+            </div>
+            <div th:each="post : ${posts}">
+                <div class="profile-posts">
+                    <div class="post-user-info">
+                        <img th:if="${user.getProfilePicture()!=null}"
+                             th:src="${user.getProfilePicture().getImageURL()}" alt="Profile picture" class="post-pp">
+                        <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
+                             class="post-pp">
+                        <h3 th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></h3>
+                    </div>
+                    <div class="post-content">
+                        <p th:text="${post.getText()}"></p>
+                        <img th:if="${post.getPicture() != null}" th:src="${post.getPicture().getImageURL()}"
+                             alt="Image">
+                    </div>
+                    <div class="post-buttons">
+                        <button>Like</button>
+                        <button>Comment</button>
+                        <button>Share</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 </div>
 </div>

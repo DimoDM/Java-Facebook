@@ -64,6 +64,11 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pictureHolder")
     private Set<Picture> profilePictures;
 
+    @ManyToMany
+    @JoinTable(name = "user_friends", joinColumns = @JoinColumn(name = "user_id") , inverseJoinColumns = @JoinColumn(name = "friendId") )
+    private Set<User> userFriends;
+
+
     public Set<Post> getPosts() {
         return posts;
     }
@@ -197,5 +202,13 @@ public class User {
 
     public void setProfilePictures(Set<Picture> profilePictures) {
         this.profilePictures = profilePictures;
+    }
+
+    public Set<User> getUserFriends() {
+        return userFriends;
+    }
+
+    public void setUserFriends(Set<User> userFriends) {
+        this.userFriends = userFriends;
     }
 }
