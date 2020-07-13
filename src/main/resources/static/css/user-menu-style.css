@@ -1,0 +1,75 @@
+.menu form{
+    float: left;
+    width: 30%;
+    background-color: white;
+    border: 1px  rgb(13, 69, 153) solid;
+    padding: 3px 3px;
+    position: absolute;
+    top: 15%;
+    left: 20%;
+}
+
+.menu form input{
+    border:none;
+    width: 93%;
+
+}
+
+.menu{
+    background-color: rgb(35, 93, 255);
+    width: 100%;
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    height: 40px;
+    z-index: 2;
+}
+
+.user-buttons{
+    position: absolute;
+    top: 8px;
+    right:20%;
+}
+
+.user-buttons a{
+    margin: 0px;
+}
+
+.menu button{
+    background-color:  rgb(35, 93, 255);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+.user-buttons button:hover{
+    color: rgb(13, 69, 153);
+}
+
+.menu .search-button{
+    padding: 0;
+    background-color: white;
+    color: darkgray;
+    position: absolute;
+    right: 4px;
+}
+
+.user-buttons a{
+    color: wheat;
+    text-decoration: none;
+    border-right: 1px rgb(83, 130, 216) solid ;
+    padding: 0 4px;
+}
+
+.user-buttons a:hover{
+    color: rgb(13, 69, 153);
+}
+
+.user-bar-photo {
+    width: 25px;
+    height: 25px;
+    float: left;
+    border-radius: 100%;
+}

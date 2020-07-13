@@ -3,6 +3,7 @@ package facebook.service.implementation;
 import facebook.dto.*;
 import facebook.entity.*;
 import facebook.repository.UserLoginDataRepository;
+import facebook.repository.UserRepository;
 import facebook.service.contract.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,8 @@ public class RegisterServiceImpl implements RegisterService {
     private final UserLoginDataRepository userRepository;
 
     @Autowired
-    public RegisterServiceImpl(UserLoginDataRepository userRepository) { this.userRepository = userRepository; }
+    public RegisterServiceImpl(UserLoginDataRepository userRepository) {
+        this.userRepository = userRepository; }
 
     @Override
     public void register(RegisterDTO registerDTO) {
@@ -33,6 +35,10 @@ public class RegisterServiceImpl implements RegisterService {
             }
 
             UserLoginData newUser = new UserLoginData();
+            User user = new User();
+
+
+
             newUser.setEmail(registerDTO.getEmail());
             newUser.setUsername(registerDTO.getUsername());
             newUser.setPhoneNumber(registerDTO.getPhone());

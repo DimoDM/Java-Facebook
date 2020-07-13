@@ -1,0 +1,233 @@
+body{
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background: rgba(35, 94, 255, 0.068);
+}
+
+.main-container{
+    width: 1200px;
+    margin: auto;
+    position: relative;
+    top: 50px;
+}
+
+.profile-base-info h2{
+ position: absolute;   
+ top: 330px;
+ left: 250px;
+}
+
+.cover{
+    position: relative;
+}
+
+.cover-photo{
+    width: 1200px;
+    height: 400px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.profile-pic{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 250px;
+    left: 20px;
+    padding: 5px;
+    background-color: white;
+    border: lightgray 1px solid ;
+    border-radius: 100%;
+    z-index: 1;
+}
+
+.profile-features{
+    width: 350px;
+
+    position: absolute;
+    top: 500px;
+    left: 10px;
+}
+
+.profile-details{
+    width: 90%;
+    max-height: 300px;
+    margin: 15px;
+    border: rgb(35, 93, 255) 1px solid; 
+    background-color: white;
+}
+
+.profile-details p{
+    margin: 13px 9px;
+}
+
+.profile-features h3{
+    text-align: center;
+    margin-bottom: 20px ;
+}
+
+.profile-friends{
+    width: 90%;
+    max-height: 300px;
+    margin: 15px;
+    border: rgb(35, 93, 255) 1px solid;   
+    background-color: white;
+}
+
+.profile-friends img{
+    width: 33%;
+    height: 100px;
+}
+
+.profile-friends a{
+    text-decoration: none;
+    color: black;
+    margin: 0;
+}
+
+
+.profile-photos{
+    width: 90%;
+    max-height: 300px;
+    margin: 15px;
+    border: rgb(35, 93, 255) 1px solid;
+    background-color: white;
+}
+
+.profile-photos img{
+    width: 33%;
+    height: 100px;
+}
+
+.profile-photos div{
+    width: auto;
+}
+
+.profile-feed{
+    width: 700px;
+    position: absolute;
+    top: 514px ;
+    left: 390px;
+}   
+
+
+.profile-menu{
+    background-color: white;
+    height: 50px;
+    width: 1200px;
+    border: lightgray 1px solid ;
+    position: relative;
+    top: 380px;
+}
+
+.profile-links{
+    margin-top: 14px;
+    margin-left: 550px;
+    padding: 0;
+}
+.profile-links a{
+    font-size: 20px;
+    text-decoration: none;
+    padding: 13px;
+    margin: 0;
+    border-collapse: collapse;
+    color:  rgb(35, 93, 255);
+}
+
+.profile-links a:hover{
+    background-color:rgba(35, 94, 255, 0.192);
+}
+.post-creator{
+    width: 100%;
+    min-height: 200px;
+    background-color: white;
+    border: gray 1px solid;
+    margin-bottom: 20px;
+}
+
+.post-pp{
+    width: 75px;
+    height: 75px;
+    margin: 20px;
+    border-radius: 100% ;
+    float: left;
+}
+
+.post-text-field{
+    display: inline;
+    width: 450px;
+    border: none;
+    height: 140px;
+    word-break: break-all;
+}
+
+
+.post-creator-buttons button{
+    border: none;
+    width: 100px;
+    cursor: pointer;
+    height: 30px;
+    background-color: rgb(11, 79, 224);
+    border: rgb(35, 93, 255) 1px solid;
+}
+
+.post-creator-buttons{
+    margin-left: 150px ;
+}
+
+.profile-posts{
+    width: 100%;
+    background: white;
+    border: 1px gray solid;
+    margin: 10px 0;
+
+}
+
+.profile-posts div{
+    display: inline-block;
+}
+
+.post-user-info{
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.post-user-info h3{
+    float: left;
+    margin-top: 40px ;
+}
+
+.post-content img{
+    width: 96%;
+    margin: 0 2%;
+}
+
+.post-content p{
+   padding-left: 10px;
+    width: 100%;
+}
+
+.post-content{
+    width: 100%;
+}
+
+.post-buttons{
+    width: auto;
+    margin-left: 180px;
+}
+
+.post-buttons button{
+    width: 100px;
+    cursor: pointer;
+    height: 30px;
+    background-color: rgb(11, 79, 224);
+    border: rgb(35, 93, 255) 1px solid;
+    margin: 10px 0;
+}
+
+
