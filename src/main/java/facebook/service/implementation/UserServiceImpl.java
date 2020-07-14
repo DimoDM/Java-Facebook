@@ -2,6 +2,8 @@ package facebook.service.implementation;
 
 import facebook.dto.LoginDTO;
 import facebook.dto.RegisterDTO;
+import facebook.entity.User;
+import facebook.entity.UserLoginData;
 import facebook.exception.InvalidLoginException;
 import facebook.repository.UserLoginDataRepository;
 import facebook.service.contract.UserService;
@@ -25,6 +27,33 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void register(RegisterDTO registerDTO) {
 
+        if(registerDTO.getPassword().equals(registerDTO.getPasswordTest()) && !registerDTO.getPassword().isEmpty()) {
+
+            if(!registerDTO.getEmail().contains("@")) {
+
+            }
+
+            if(registerDTO.getUsername().isEmpty()) {
+
+            }
+
+            if(registerDTO.getPhone().isEmpty()) {
+
+            }
+
+            UserLoginData newUser = new UserLoginData();
+            User user = new User();
+
+
+
+            newUser.setEmail(registerDTO.getEmail());
+            newUser.setUsername(registerDTO.getUsername());
+            newUser.setPhoneNumber(registerDTO.getPhone());
+            newUser.setPassword(registerDTO.getPassword());
+
+            userRepository.save(newUser);
+        }
+
     }
 
     @Override
@@ -34,6 +63,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        UserLoginData user = userRepository.findFirstByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User not found; with username: " + username));
+
+        return user;
+    }
     }
 }
