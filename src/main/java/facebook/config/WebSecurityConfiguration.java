@@ -22,21 +22,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/register").permitAll()
-//                    .anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/login").permitAll()
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .and()
-                .logout().logoutSuccessUrl("/").permitAll()
-                .and()
-                .userDetailsService(userService)
-                .exceptionHandling().accessDeniedPage("/unauthorized")
-                .and()
-                .csrf().disable();
+
+
     }
 
 }

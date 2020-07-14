@@ -21,7 +21,7 @@ public class RegisterController extends BaseController {
 
 //    @GetMapping("/register")
 //    public ModelAndView registerState(ModelAndView modelAndView){
-//        modelAndView.setViewName("index.html");
+//        modelAndView.setViewName("register.html");
 //        return modelAndView;
 //    }
 
