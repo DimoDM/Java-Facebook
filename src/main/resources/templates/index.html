@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a th:href="@{/demo}">Link</a>
+    <a th:href="@{/login}">Login</a>
+    <a th:href="@{/register}">Register</a>
+
+    <h2 th:if="${user != null}" th:text="'Welcome, ' + ${user}"></h2>
+
+    <a sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+
+</body>
+</html>

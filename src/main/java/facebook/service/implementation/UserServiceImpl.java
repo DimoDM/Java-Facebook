@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserLoginData user = userRepository.findFirstByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found; with username: " + username));
 
+        System.out.println(user.getUsername());
         return user;
     }
 }

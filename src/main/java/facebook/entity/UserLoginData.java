@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_login_data")
@@ -26,6 +27,12 @@ public class UserLoginData implements UserDetails {
 
     @Column(name = "phoneNumber")
     private String phoneNumber;
+
+    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    private Set<Role> roles;
 
     public UserLoginData() {}
 
