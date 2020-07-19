@@ -8,5 +8,5 @@ public interface UserService {
 
     void register(RegisterDTO registerDTO);
 
-    void loginAuthentication(LoginDTO loginDTO) throws InvalidLoginException;
+    //void loginAuthentication(LoginDTO loginDTO) throws InvalidLoginException;
 }

@@ -1,6 +1,7 @@
 package facebook.controller;
 
 
+import facebook.dto.LoginDTO;
 import facebook.dto.RegisterDTO;
 import facebook.service.implementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +50,6 @@ public class UserController extends BaseController {
     public ModelAndView login() {
         return send("login");
     }
+
+
 }

@@ -3,9 +3,11 @@ package facebook.service.implementation;
 import facebook.entity.Role;
 import facebook.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
+@Service
 public class RoleService {
 
     private final RoleRepository roleRepository;
