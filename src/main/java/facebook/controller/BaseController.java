@@ -16,7 +16,13 @@ public class BaseController {
         return modelAndView;
     }
 
-    protected ModelAndView redirect(String endPoint) {
-        return new ModelAndView("redirect:" + endPoint);
+    protected ModelAndView redirect(String endpoint) {
+        return new ModelAndView("redirect:" + endpoint);
+    }
+
+    protected ModelAndView redirect(String endpoint, String objectName, Object object) {
+        ModelAndView modelAndView = new ModelAndView("redirect:" + endpoint);
+        modelAndView.addObject(objectName, object);
+        return modelAndView;
     }
 }
