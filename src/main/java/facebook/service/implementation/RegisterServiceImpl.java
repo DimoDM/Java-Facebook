@@ -28,14 +28,9 @@ public class RegisterServiceImpl implements RegisterService {
 
             }
 
-            if(registerDTO.getPhone().isEmpty()) {
-
-            }
-
             UserLoginData newUser = new UserLoginData();
             newUser.setEmail(registerDTO.getEmail());
             newUser.setUsername(registerDTO.getUsername());
-            newUser.setPhoneNumber(registerDTO.getPhone());
             newUser.setPassword(registerDTO.getPassword());
 
             userRepository.save(newUser);

@@ -4,7 +4,6 @@ public class RegisterDTO {
 
     private String username;
     private String email;
-    private String phone;
     private String password;
     private String passwordTest;
 
@@ -16,10 +15,6 @@ public class RegisterDTO {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPhone() {
-        return phone;
     }
 
     public String getPassword() {
@@ -36,10 +31,6 @@ public class RegisterDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public void setPassword(String password) {

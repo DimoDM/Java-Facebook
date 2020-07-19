@@ -23,18 +23,12 @@ public class RegisterController extends BaseController {
         this.registerService = registerService;
     }
 
-//    @GetMapping("/register")
-//    public ModelAndView registerState(ModelAndView modelAndView){
-//        modelAndView.setViewName("index.html");
-//        return modelAndView;
-//    }
 
     @PostMapping("/register")
     public ModelAndView register(@ModelAttribute RegisterDTO registerDTO) {
 
 
         registerService.register(registerDTO);
-        return send("index.html");
+        return send("RegistrationFormPage.html");
     }
-
 }
