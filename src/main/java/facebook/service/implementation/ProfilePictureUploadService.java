@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
-public class ImageAvatarUploadService {
+public class ProfilePictureUploadService {
     public void uploadImage(MultipartFile imageAvatar) throws IOException {
         Path filepath = Paths.get("", imageAvatar.getOriginalFilename());
         imageAvatar.transferTo(filepath);

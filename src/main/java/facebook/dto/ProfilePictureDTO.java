@@ -2,10 +2,10 @@ package facebook.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class ImageAvatarDTO {
+public class ProfilePictureDTO {
     private MultipartFile imageAvatar;
 
-    public ImageAvatarDTO() {
+    public ProfilePictureDTO() {
     }
 
     public MultipartFile getImageAvatar() {
