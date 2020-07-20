@@ -1,5 +1,6 @@
 package facebook.service.contract;
 
+import facebook.entity.FriendRequest;
 import facebook.entity.Post;
 import facebook.entity.User;
 import org.springframework.stereotype.Service;
@@ -13,4 +14,5 @@ public interface ProfileService {
 
     Set<Post> getUserPosts(User user);
 
+    FriendRequest getAuthUserReq(Long id);
 }

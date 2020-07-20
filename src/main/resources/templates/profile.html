@@ -35,6 +35,26 @@
                      alt="Cover Photo" class="cover-photo">
                 <img th:if="${user.getBackPicture() == null}" src="../images/cover-banner.png" alt=""
                      class="cover-photo">
+<!--
+                <th:block th:if="${!friends.contains(authUser) && !user.equals(authUser)}">
+                    <form action="/sendFriendRequest", method="post">
+                        <input type="number" th:value="${user.getId()}" style="display: none"> -this should be invisible
+                        <button type="submit">Add friend</button>
+                    </form>
+                </th:block>
+                <th:block th:if="${!user.equals(authUser)}">
+                    <th:block th:if="friendRequest.getReceiver().equals(authUser)">
+                        <form action="/accept-request" method="post"></form>
+                        <input type="number" th:value="${user.getId()}" style="display: none">-this should be invisible
+                        <button type="submit">Accept Request</button>
+                    </th:block>
+                    <th:block th:if="friendRequest.getRequester().equals(authUser)">
+                        <form action="/deny-request" method="post"></form>
+                        <input type="number" th:value="${user.getId()}" style="display: none">-this should be invisible
+                        <button type="submit">Cancel Request</button>
+                    </th:block>
+                </th:block>
+-->
             </div>
             <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}"
                  alt="profile pic" class="profile-pic">

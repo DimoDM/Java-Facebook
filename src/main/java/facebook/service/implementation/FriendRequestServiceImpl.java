@@ -44,6 +44,6 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     public void declineFriendRequest(Long requesterId, Long receiverId) {
         User requester = userRepository.findById(requesterId).get();
         User receiver = userRepository.findById(receiverId).get();
-//        friendRequestRepository.deleteFriendRequestByRequesterAndReceiver(requester,receiver);
+        friendRequestRepository.deleteFriendRequestByRequesterAndReceiver(requester,receiver);
     }
 }
