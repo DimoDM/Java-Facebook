@@ -53,21 +53,23 @@
                 <th:block th:if="${!friends.contains(authUser) && !user.equals(authUser) && friendRequest == null}">
                     <form action="/sendFriendRequest" method="post">
                         <input type="number" th:value="${user.getId()}"  name="userId">
-                        <button type="submit" class="friend-button">Add friend</button>
+                        <button type="submit">Add friend</button>
                     </form>
                 </th:block>
                 <th:block th:if="${friendRequest != null && !user.equals(authUser) && friendRequest.getReceiver().equals(authUser)}">
-                        <form action="/acceptRequest" method="post"></form>
-                        <input type="number" th:value="${user.getId()}" style="display: none" name="userId">
-                        <button type="submit" class="friend-button">Accept Request</button>
+                        <form action="/acceptRequest" method="post">
+                            <input type="number" th:value="${user.getId()}" name="userId">
+                            <button type="submit">Accept Request</button>
+                        </form>
                 </th:block>
                 <th:block th:if="${friendRequest != null && !user.equals(authUser) && friendRequest.getRequester().equals(authUser)}">
-                        <form action="/cancelRequest" method="post"></form>
-                        <input type="number" th:value="${user.getId()}" style="display: none" name="userId">
-                        <button type="submit" class="friend-button">Cancel Request</button>
+                        <form action="/cancelRequest" method="post">
+                            <input type="number" th:value="${user.getId()}" name="userId">
+                            <button type="submit">Cancel Request</button>
+                        </form>
                 </th:block>
             </div>
-            <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}"
+            <img th:if="${user.getProfilePicture() !=null}" th:src="${user.getProfilePicture().getImageURL()}"
                  alt="profile pic" class="profile-pic">
             <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt="" class="profile-pic">
             <h2 th:text="${user.getFirstName() + ' ' + user.getSecondName()}"></h2>
