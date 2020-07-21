@@ -29,6 +29,7 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
+    compile 'org.springframework.boot:spring-boot-starter-mail:2.2.5.RELEASE'
 
     compile 'com.sendgrid:sendgrid-java:4.6.1'
 

@@ -2,6 +2,7 @@ package facebook.controller;
 
 import facebook.dto.ResetPasswordDTO;
 import facebook.service.implementation.EmailServiceImpl;
+import facebook.service.implementation.EmailServiceImpl22;
 import facebook.service.implementation.ResetPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,10 +27,10 @@ public class ForgottenPasswordController extends BaseController {
     }
 
     @GetMapping("/changePassword")
-    public ModelAndView changePassword(@RequestParam(value = "token", required = true) String token,
-                                       @RequestParam(value = "email", required = true) String email) throws IOException {
+    public ModelAndView changePassword(@RequestParam(value = "token", required = false) String token,
+                                       @RequestParam(value = "email", required = false) String email) throws IOException {
 
-        emailService.sendCustomEmail("Dano da proraboti", "gogogospodinov69@gmail.com", "male, shsi udara guza ot tavana");
+        emailService.sendSimpleMessage("gogogospodinov69@gmail.com", "proba", "Dano da proraboti");
 
         return send("facebook");
     }
