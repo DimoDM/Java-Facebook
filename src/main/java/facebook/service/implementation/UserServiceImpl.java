@@ -34,38 +34,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void register(RegisterDTO registerDTO) {
 
-        if(registerDTO.getPassword().equals(registerDTO.getPasswordTest()) && !registerDTO.getPassword().isEmpty()) {
+        validRegister(registerDTO);
 
-            if(!registerDTO.getEmail().contains("@")) {
-
-            }
-
-            if(registerDTO.getUsername().isEmpty()) {
-
-            }
-
-            if(registerDTO.getPhone().isEmpty()) {
-
-            }
-
-            UserLoginData newUser = new UserLoginData();
-            User user = new User();
+        UserLoginData newUser = new UserLoginData();
+        User user = new User();
 
 
+        newUser.setEmail(registerDTO.getEmail());
+        newUser.setUsername(registerDTO.getUsername());
+        newUser.setPhoneNumber(registerDTO.getPhone());
+        newUser.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
 
-            newUser.setEmail(registerDTO.getEmail());
-            newUser.setUsername(registerDTO.getUsername());
-            newUser.setPhoneNumber(registerDTO.getPhone());
-            newUser.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getUserRole());
+        newUser.setRoles(roles);
 
-            Set<Role> roles = new HashSet<>();
-            roles.add(roleService.getUserRole());
-            newUser.setRoles(roles);
-
-            userRepository.save(newUser);
-        }
-
+        userRepository.save(newUser);
     }
+
+
 /*
     @Override
     public void loginAuthentication(LoginDTO loginDTO) throws InvalidLoginException {
@@ -81,5 +68,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return user;
     }
 
+    public void validRegister(RegisterDTO registerDTO) {
+        if (registerDTO.getPassword().equals(registerDTO.getPasswordTest()) && !registerDTO.getPassword().isEmpty()) {
 
+            if (!registerDTO.getEmail().contains("@")) {
+
+            }
+
+            if (registerDTO.getUsername().isEmpty()) {
+
+            }
+
+            if (registerDTO.getPhone().isEmpty()) {
+
+            }
+        }
+    }
 }

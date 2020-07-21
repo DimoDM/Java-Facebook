@@ -1,14 +1,12 @@
 package facebook.controller;
 
+import facebook.dto.ForgottenPasswordDTO;
 import facebook.dto.ResetPasswordDTO;
 import facebook.service.implementation.EmailServiceImpl;
 import facebook.service.implementation.ResetPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -27,19 +25,29 @@ public class ForgottenPasswordController extends BaseController {
     }
 
     @GetMapping("/changePassword")
-    public ModelAndView changePassword(@RequestParam(value = "token", required = false) String token,
-                                       @RequestParam(value = "email", required = false) String email) throws IOException {
+    public ModelAndView changePassword(@RequestParam(value = "token", required = true) String token,
+                                       @RequestParam(value = "email", required = true) String email) throws IOException {
 
+        if (resetPasswordService.checkIfLinkIsValid(token, email)){
+            return send("changePassword", "userEmail", email);
+        }
 
-
-        return send("facebook");
+        return send("changePassword");
     }
 
     @PostMapping("/sendMail")
-    public ModelAndView sendMail(@ModelAttribute ResetPasswordDTO resetPasswordDTO) {
+    public ModelAndView sendMail(@ModelAttribute ForgottenPasswordDTO forgottenPasswordDTO) {
 
-        resetPasswordService.sendMail(resetPasswordDTO.getEmail());
+        resetPasswordService.sendMail(forgottenPasswordDTO.getEmail());
         return send("facebook");
+    }
+
+    @PostMapping("/changePassword")
+    public ModelAndView changePassword(@ModelAttribute ResetPasswordDTO resetPasswordDTO){
+
+        resetPasswordService.saveNewPasswordInDatabase(resetPasswordDTO, resetPasswordDTO.getEmail());
+
+        return send("login");
     }
 
 }
