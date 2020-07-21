@@ -1,32 +1,25 @@
 package facebook.service.implementation;
 
-import facebook.component.EmailServiceImpl;
 import facebook.dto.ResetPasswordDTO;
 import facebook.entity.UserLoginData;
 import facebook.repository.PasswordResetTokenRepository;
 import facebook.repository.UserLoginDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Properties;
 
 @Service
 public class ResetPasswordService {
 
     private final UserLoginDataRepository userLoginDataRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
-    private final EmailServiceImpl emailService;
 
 
     @Autowired
-    public ResetPasswordService(UserLoginDataRepository userLoginDataRepository, PasswordResetTokenRepository passwordResetTokenRepository, EmailServiceImpl emailService) {
+    public ResetPasswordService(UserLoginDataRepository userLoginDataRepository, PasswordResetTokenRepository passwordResetTokenRepository) {
         this.userLoginDataRepository = userLoginDataRepository;
         this.passwordResetTokenRepository = passwordResetTokenRepository;
-        this.emailService = emailService;
     }
 
 

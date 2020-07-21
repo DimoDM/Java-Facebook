@@ -29,6 +29,9 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
+
+    compile 'com.sendgrid:sendgrid-java:4.6.1'
+
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.security:spring-security-test'
 
