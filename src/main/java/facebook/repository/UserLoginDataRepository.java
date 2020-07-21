@@ -12,4 +12,7 @@ public interface UserLoginDataRepository extends JpaRepository<UserLoginData, Lo
     Optional<UserLoginData> getFirstByUsernameOrPhoneNumberOrEmail(String username, String phoneNumber, String email);//username - can be email or phoneNumber
 
     Optional<UserLoginData> findFirstByUsername(String username);
+
+    Boolean existsByEmail(String email);
+    UserLoginData findFirstByEmail(String email);
 }

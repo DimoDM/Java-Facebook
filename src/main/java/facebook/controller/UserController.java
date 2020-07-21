@@ -42,7 +42,7 @@ public class UserController extends BaseController {
     @PreAuthorize("!isAuthenticated()")
     @GetMapping("/register")
     public ModelAndView register(@ModelAttribute("user") RegisterDTO registerDTO) {
-        return send("RegistrationFormPage");
+        return send("register");
     }
 
     @PreAuthorize("!isAuthenticated()")
@@ -57,7 +57,7 @@ public class UserController extends BaseController {
         return send("facebook");
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("!isAuthenticated()")
     @GetMapping("/forgotPassword")
     public ModelAndView forgottenPasswordPage(){
         return send("forgottenPasswordPage");
