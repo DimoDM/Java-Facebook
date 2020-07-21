@@ -24,21 +24,21 @@ public class FriendRequestController extends BaseController {
         this.userService = userService;
     }
 
-    @PostMapping("/accept-request")
+    @PostMapping("/acceptRequest")
     public ModelAndView acceptFriendRequest(@ModelAttribute UserIdDTO userIdDTO, Principal principal) throws FriendRequestNotFoundException, UserByIdNotFoundException {
         //test
         friendRequestService.acceptFriendRequest(1L,userService.getAuthUser(principal.getName()));
         return redirect("/1");
     }
 
-    @PostMapping("/deny-request")
+    @PostMapping("/denyRequest")
     public ModelAndView declineFriendRequest(@ModelAttribute UserIdDTO userIdDTO, Principal principal) throws UserByIdNotFoundException {
         //test
         friendRequestService.declineFriendRequest(2L,userService.getAuthUser(principal.getName()));
         return redirect("/"+userIdDTO);
     }
 
-    @PostMapping("/cancel-request")
+    @PostMapping("/cancelRequest")
     public ModelAndView cancelRequest(@ModelAttribute UserIdDTO userIdDTO, Principal principal) throws UserByIdNotFoundException {
         friendRequestService.cancelFriendRequest(userService.getAuthUser(principal.getName()),userIdDTO.getUserId());
         return redirect("/" + userIdDTO.getUserId());

@@ -8,6 +8,7 @@ import facebook.repository.FriendRequestRepository;
 import facebook.service.contract.ProfileService;
 import facebook.service.contract.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ public class FacebookProfileController extends BaseController{
         this.fReqRepo = fReqRepo;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public ModelAndView profile(@PathVariable("id") Long id, ModelAndView modelAndView, Principal principal) throws UserByIdNotFoundException {
         User userProfile = profileService.getProfile(id);

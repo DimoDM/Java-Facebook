@@ -14,18 +14,31 @@
             <button type="submit" class="fa fa-search search-button"></button>
         </form>
         <div class="user-buttons">
-            <a th:href="@{/1}">
-                <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}"
+            <a th:href="@{${authUser.getId()}}">
+                <img th:if="${authUser.getProfilePicture()!=null}" th:src="${authUser.getProfilePicture().getImageURL()}"
                      alt="User Profile Picture" class="user-bar-photo">
-                <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
+                <img th:if="${authUser.getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
                      class="user-bar-photo">
-                <span th:text="${user.getFirstName()}"></span>
+                <span th:text="${authUser.getFirstName()}"></span>
             </a>
             <a th:href="@{/home}">Home</a>
             <button class="fa fa-user"></button>
             <button class="fa fa-envelope"></button>
             <button class="fa fa-bell"></button>
-            <button class="fa fa-bars"></button>
+            <button onclick="show_hide_more()" class="fa fa-bars more-button" id></button>
+            <a th:href="@{/logout}">Logout</a>
+            <div id="more-button-drop-down" style="display: none">
+                <a th:href="@{/logout}">Logout</a>
+            </div>
+            <script>
+                function show_hide_more() {
+                    let click = document.document.getElementById("more-button-drop-down";
+                    if (click.style.display === "none"){
+                        click.style.display = "block";
+                    }else
+                        click.style.display = "none";
+                }
+            </script>
         </div>
     </div>
     <div class="main-container">
@@ -39,21 +52,19 @@
 
                 <th:block th:if="${!friends.contains(authUser) && !user.equals(authUser) && friendRequest == null}">
                     <form action="/sendFriendRequest" method="post">
-                        <input type="number" th:value="${user.getId()}"  name="userId"> -this should be invisible
+                        <input type="number" th:value="${user.getId()}"  name="userId">
                         <button type="submit" class="friend-button">Add friend</button>
                     </form>
                 </th:block>
-                <th:block th:if="${!user.equals(authUser)}">
-                    <th:block th:if="${friendRequest != null && friendRequest.getReceiver().equals(authUser)}">
-                        <form action="/accept-request" method="post"></form>
-                        <input type="number" th:value="${user.getId()}" style="display: none" name="userId">-this should be invisible
+                <th:block th:if="${friendRequest != null && !user.equals(authUser) && friendRequest.getReceiver().equals(authUser)}">
+                        <form action="/acceptRequest" method="post"></form>
+                        <input type="number" th:value="${user.getId()}" style="display: none" name="userId">
                         <button type="submit" class="friend-button">Accept Request</button>
-                    </th:block>
-                    <th:block th:if="${friendRequest != null && friendRequest.getRequester().equals(authUser)}">
-                        <form action="/cancel-request" method="post"></form>
-                        <input type="number" th:value="${user.getId()}" style="display: none" name="userId">-this should be invisible
+                </th:block>
+                <th:block th:if="${friendRequest != null && !user.equals(authUser) && friendRequest.getRequester().equals(authUser)}">
+                        <form action="/cancelRequest" method="post"></form>
+                        <input type="number" th:value="${user.getId()}" style="display: none" name="userId">
                         <button type="submit" class="friend-button">Cancel Request</button>
-                    </th:block>
                 </th:block>
             </div>
             <img th:if="${user.getProfilePicture()!=null}" th:src="${user.getProfilePicture().getImageURL()}"
