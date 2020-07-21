@@ -7,6 +7,8 @@ public class RegisterDTO {
     private String phone;
     private String password;
     private String passwordTest;
+    private String firstName;
+    private String lastName;
 
     public RegisterDTO() {}
 
@@ -48,5 +50,21 @@ public class RegisterDTO {
 
     public void setPasswordTest(String passwordTest) {
         this.passwordTest = passwordTest;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

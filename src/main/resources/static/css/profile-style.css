@@ -230,4 +230,13 @@ body{
     margin: 10px 0;
 }
 
+.friend-button{
+    padding: 10px 40px;
+    border: 1px rgb(11, 79, 224) solid;
+    background: white;
+    position: absolute;
+    top: 300px;
+    right: 100px;
+}
+
 

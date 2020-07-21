@@ -3,6 +3,7 @@ package facebook.service.implementation;
 import facebook.entity.FriendRequest;
 import facebook.entity.Post;
 import facebook.entity.User;
+import facebook.exception.UserByIdNotFoundException;
 import facebook.exception.UserNotFoundException;
 import facebook.repository.FriendRequestRepository;
 import facebook.repository.PostRepository;
@@ -28,8 +29,9 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public User goToProfile(Long id) {
-        return userRepository.findById(id).get();
+    public User getProfile(Long id) throws UserByIdNotFoundException {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserByIdNotFoundException("User not found"));
     }
 
     @Override
@@ -38,9 +40,10 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public FriendRequest getAuthUserReq(Long id) {
-        User user = userRepository.findById(id).get();
-        return friendRequestRepository.findByRequesterOrReceiver(user, user);
+    public FriendRequest getFriendRequestWithId(Long id) throws UserByIdNotFoundException {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserByIdNotFoundException("User not found"));
+        return friendRequestRepository.findFriendRequestByRequesterOrReceiver(user, user);
     }
 
 }

@@ -1,16 +1,16 @@
 package facebook.dto;
 
 public class UserIdDTO {
-    private Long UserID;
+    private long userId;
 
     public UserIdDTO() {
     }
 
-    public Long getUserID() {
-        return UserID;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUserID(Long userID) {
-        UserID = userID;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 }

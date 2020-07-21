@@ -4,7 +4,9 @@ import facebook.dto.RegisterDTO;
 import facebook.entity.Role;
 import facebook.entity.User;
 import facebook.entity.UserLoginData;
+import facebook.exception.UserNotFoundException;
 import facebook.repository.UserLoginDataRepository;
+import facebook.repository.UserRepository;
 import facebook.service.contract.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,16 +19,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
 
-    private final UserLoginDataRepository userRepository;
+    private final UserLoginDataRepository userLoginDataRepository;
+    private final UserRepository userRepository;
     private final RoleService roleService;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserLoginDataRepository userRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(UserLoginDataRepository userRepository, UserRepository userRepository1, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
+        this.userLoginDataRepository = userRepository;
+        this.userRepository = userRepository1;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -48,21 +52,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
             }
 
-            UserLoginData newUser = new UserLoginData();
+            UserLoginData newUserData = new UserLoginData();
             User user = new User();
 
 
 
-            newUser.setEmail(registerDTO.getEmail());
-            newUser.setUsername(registerDTO.getUsername());
-            newUser.setPhoneNumber(registerDTO.getPhone());
-            newUser.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+            newUserData.setEmail(registerDTO.getEmail());
+            newUserData.setUsername(registerDTO.getUsername());
+            newUserData.setPhoneNumber(registerDTO.getPhone());
+            newUserData.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+            user.setFirstName(registerDTO.getFirstName());
+            user.setSecondName(registerDTO.getLastName());
+            userRepository.save(user);
 
             Set<Role> roles = new HashSet<>();
             roles.add(roleService.getUserRole());
-            newUser.setRoles(roles);
-
-            userRepository.save(newUser);
+            newUserData.setRoles(roles);
+            newUserData.setUser(user);
+            userLoginDataRepository.save(newUserData);
         }
 
     }
@@ -74,10 +81,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserLoginData user = userRepository.findFirstByUsername(username)
+        UserLoginData user = userLoginDataRepository.findFirstByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found; with username: " + username));
-
-        System.out.println(user.getUsername());
         return user;
     }
+
+    @Override
+    public User getAuthUser(String username){
+        UserLoginData userLoginData = userLoginDataRepository.findFirstByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return userLoginData.getUser();
+    }
+
 }

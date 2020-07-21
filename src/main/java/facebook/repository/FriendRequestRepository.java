@@ -11,9 +11,9 @@ import java.util.Set;
 @Repository
 public interface FriendRequestRepository extends JpaRepository<FriendRequest,Long> {
 
-    FriendRequest findByRequesterOrReceiver(User requester, User receiver);
+    Set<FriendRequest> findAllByRequesterOrReceiver(User requester, User receiver);
 
-    Set<FriendRequest> findByReceiver(User receiver);
+    FriendRequest findFriendRequestByRequesterOrReceiver(User requester, User receiver);
 
     FriendRequest findByRequesterAndReceiver(User requester, User receiver);
 

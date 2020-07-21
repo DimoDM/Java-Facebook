@@ -3,6 +3,7 @@ package facebook.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -33,6 +34,12 @@ public class UserLoginData implements UserDetails {
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<Role> roles;
+
+    @Column(name = "is_enabled")
+    private boolean isEnabled;
+
+    @OneToOne
+    private User user;
 
     public UserLoginData() {}
 
@@ -103,5 +110,21 @@ public class UserLoginData implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 }
