@@ -4,6 +4,7 @@ public class ResetPasswordDTO {
 
     private String password;
     private String passwordRepeat;
+    private String email;
 
     public ResetPasswordDTO() {
     }
@@ -22,5 +23,13 @@ public class ResetPasswordDTO {
 
     public void setPasswordRepeat(String passwordRepeat) {
         this.passwordRepeat = passwordRepeat;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

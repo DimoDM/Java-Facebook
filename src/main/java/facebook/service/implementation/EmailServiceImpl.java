@@ -14,12 +14,14 @@ public class EmailServiceImpl {
     private JavaMailSender emailSender;
 
     public void sendSimpleMessage(
-            String to, String subject, String text) {
+            String to, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("noreplyjnoreplyj98@gmail.com");
         message.setTo(to);
-        message.setSubject(subject);
+        message.setSubject("Facebook(notPhP) Change your password!");
         message.setText(text);
         emailSender.send(message);
     }
+
+
 }
