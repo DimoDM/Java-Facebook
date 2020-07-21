@@ -13,4 +13,5 @@ public interface FriendRequestService {
     void sendFriendRequest(User requester, Long receiverId) throws UserByIdNotFoundException;
     void cancelFriendRequest(User requester, Long receiverId) throws UserByIdNotFoundException;
 
+    void removeFriend(User authUser, Long userId) throws UserByIdNotFoundException;
 }

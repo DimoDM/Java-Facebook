@@ -68,6 +68,12 @@
                             <button type="submit">Cancel Request</button>
                         </form>
                 </th:block>
+                <th:block th:if="${friends.contains(authUser) && !user.equals(authUser)}">
+                    <form action="/removeFriend" method="post">
+                        <input type="number" th:value="${user.getId()}" name="userId">
+                        <button type="submit">Remove Friend</button>
+                    </form>
+                </th:block>
             </div>
             <img th:if="${user.getProfilePicture() !=null}" th:src="${user.getProfilePicture().getImageURL()}"
                  alt="profile pic" class="profile-pic">

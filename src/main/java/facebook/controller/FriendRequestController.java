@@ -50,5 +50,11 @@ public class FriendRequestController extends BaseController {
         return redirect("/"+userIdDTO.getUserId());
     }
 
+    @PostMapping("/removeFriend")
+    public ModelAndView removeFriend(@ModelAttribute UserIdDTO userIdDTO, Principal principal) throws UserByIdNotFoundException {
+        friendRequestService.removeFriend(userService.getAuthUser(principal.getName()),userIdDTO.getUserId());
+        return redirect("/"+userIdDTO.getUserId());
+    }
+
 
 }
