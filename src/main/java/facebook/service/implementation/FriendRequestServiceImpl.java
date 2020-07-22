@@ -27,6 +27,10 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     @Override
     public void acceptFriendRequest(Long requesterId, User receiver) throws FriendRequestNotFoundException, UserByIdNotFoundException {
         User requester = findUser(requesterId);
+        accept(requester,receiver);
+    }
+
+    private void accept(User requester, User receiver) throws FriendRequestNotFoundException {
         if (friendRequestRepository.findByRequesterAndReceiver(requester, receiver) == null) {
             throw new FriendRequestNotFoundException("Friend Request not Found." +
                     " The requester must have cancelled his/her request or you could have accepted his/her request already");
