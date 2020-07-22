@@ -4,6 +4,7 @@ import facebook.dto.RegisterDTO;
 import facebook.entity.Role;
 import facebook.entity.User;
 import facebook.entity.UserLoginData;
+import facebook.exception.UserByEmailNotFoundException;
 import facebook.exception.UserNotFoundException;
 import facebook.repository.UserLoginDataRepository;
 import facebook.repository.UserRepository;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public void setUserToUserLoginData(UserLoginData userLoginData, User user){
+    public void setUserToUserLoginData(UserLoginData userLoginData, User user) {
         user.setUserLoginData(userLoginData);
         userRepository.save(user);
     }
@@ -67,7 +68,7 @@ public class UserServiceImpl implements UserService {
         userLoginDataRepository.save(userLoginData);
         setUserToUserLoginData(userLoginData, user);
 
-    
+    }
 
 
 /*
@@ -87,11 +88,10 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         if (userLoginDataRepository.existsByEmail(email)) {
-
-            UserLoginData user = userLoginDataRepository.findFirstByEmail(email);
+            UserLoginData user = userLoginDataRepository.findFirstByEmail(email).get();
             return user;
-        } else{
-            throw new IllegalArgumentException("User not found with email: " + email);
+        } else {
+            throw new UsernameNotFoundException("User not found with email: " + email);
         }
     }
 
@@ -109,9 +109,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getAuthUser(String username){
-        UserLoginData userLoginData = userLoginDataRepository.findFirstByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    public User getAuthUser(String email) throws UserByEmailNotFoundException {
+        UserLoginData userLoginData = userLoginDataRepository.findFirstByEmail(email)
+                .orElseThrow(() -> new UserByEmailNotFoundException("User not found"));
         return userLoginData.getUser();
     }
 

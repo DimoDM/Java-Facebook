@@ -3,6 +3,7 @@ package facebook.controller;
 import facebook.entity.FriendRequest;
 import facebook.entity.Post;
 import facebook.entity.User;
+import facebook.exception.UserByEmailNotFoundException;
 import facebook.exception.UserByIdNotFoundException;
 import facebook.repository.FriendRequestRepository;
 import facebook.service.contract.ProfileService;
@@ -34,7 +35,7 @@ public class FacebookProfileController extends BaseController{
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
-    public ModelAndView profile(@PathVariable("id") Long id, ModelAndView modelAndView, Principal principal) throws UserByIdNotFoundException {
+    public ModelAndView profile(@PathVariable("id") Long id, ModelAndView modelAndView, Principal principal) throws UserByEmailNotFoundException, UserByIdNotFoundException {
         User userProfile = profileService.getProfile(id);
         User authUser = userService.getAuthUser(principal.getName());
         Set<Post> userPosts = profileService.getUserPosts(userProfile);

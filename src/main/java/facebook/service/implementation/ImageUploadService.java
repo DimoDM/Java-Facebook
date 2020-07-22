@@ -1,4 +1,4 @@
-package facebook.service;
+package facebook.service.implementation;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,8 +10,9 @@ import java.nio.file.Paths;
 @Service
 public class ImageUploadService {
 
-    public void uploadImage(MultipartFile image) throws IOException {
+    public String uploadImage(MultipartFile image) throws IOException {
         Path filepath = Paths.get("", image.getOriginalFilename());
         image.transferTo(filepath);
+        return filepath.toString();
     }
 }

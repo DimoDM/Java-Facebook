@@ -8,11 +8,8 @@ import java.util.Set;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "image_id", nullable = false)
-    private long imageId;
 
     @OneToOne
     private Picture picture;
@@ -63,6 +60,10 @@ public class Post {
         this.id = id;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public User getPoster() {
         return poster;
     }
@@ -70,22 +71,6 @@ public class Post {
 
     public void setPoster(User poster) {
         this.poster = poster;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(long imageId) {
-        this.imageId = imageId;
     }
 
     public String getText() {
@@ -103,4 +88,6 @@ public class Post {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+
 }

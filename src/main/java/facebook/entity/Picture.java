@@ -38,6 +38,14 @@ public class Picture {
         this.imageURL = imageURL;
     }
 
+    public User getPictureHolder() {
+        return pictureHolder;
+    }
+
+    public void setPictureHolder(User pictureHolder) {
+        this.pictureHolder = pictureHolder;
+    }
+
     public Integer getStatus() {
         return status;
     }
