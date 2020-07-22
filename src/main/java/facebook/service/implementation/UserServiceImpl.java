@@ -5,6 +5,7 @@ import facebook.entity.Role;
 import facebook.entity.User;
 import facebook.entity.UserLoginData;
 import facebook.repository.UserLoginDataRepository;
+import facebook.repository.UserRepository;
 import facebook.service.contract.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,52 +22,70 @@ import java.util.Set;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
 
-    private final UserLoginDataRepository userRepository;
+    private final UserLoginDataRepository userLoginDataRepository;
+    private final UserRepository userRepository;
     private final RoleService roleService;
     private final BCryptPasswordEncoder passwordEncoder;
 
+
     @Autowired
-    public UserServiceImpl(UserLoginDataRepository userRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserLoginDataRepository userLoginDataRepository, UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
+        this.userLoginDataRepository = userLoginDataRepository;
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
+    public void setUserToUserLoginData(UserLoginData userLoginData, User user){
+        user.setUserLoginData(userLoginData);
+        userRepository.save(user);
+    }
+
     @Override
     public void register(RegisterDTO registerDTO) {
 
-        if(registerDTO.getPassword().equals(registerDTO.getPasswordTest()) && !registerDTO.getPassword().isEmpty()) {
+        //validRegister(registerDTO);
 
-            if(!registerDTO.getEmail().contains("@")) {
+        User user = new User();
+        UserLoginData userLoginData = new UserLoginData();
 
-            }
+        user.setFirstName(registerDTO.getFirstName());
+        user.setDateOfBirth(registerDTO.getDateOfBirth());
+        user.setSecondName(registerDTO.getLastName());
+        user.setGender(registerDTO.getGender());
+        userLoginData.setEmail(registerDTO.getEmail());
+        userLoginData.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
 
-            if(registerDTO.getUsername().isEmpty()) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getUserRole());
+        userLoginData.setRoles(roles);
 
-            }
-
-            if(registerDTO.getPhone().isEmpty()) {
-
-            }
-
-            UserLoginData newUser = new UserLoginData();
-            User user = new User();
+        userRepository.save(user);
+        userLoginData.setUser(user);
+        userLoginDataRepository.save(userLoginData);
+        setUserToUserLoginData(userLoginData, user);
 
 
 
-            newUser.setEmail(registerDTO.getEmail());
-            newUser.setUsername(registerDTO.getUsername());
-            newUser.setPhoneNumber(registerDTO.getPhone());
-            newUser.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
 
-            Set<Role> roles = new HashSet<>();
-            roles.add(roleService.getUserRole());
-            newUser.setRoles(roles);
+/*
+        UserLoginData newUser = new UserLoginData();
+        User user = new User();
 
-            userRepository.save(newUser);
-        }
 
+        newUser.setEmail(registerDTO.getEmail());
+        newUser.setPhoneNumber(registerDTO.getPhone());
+        newUser.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getUserRole());
+        newUser.setRoles(roles);
+
+        userRepository.save(newUser);*/
     }
+
+
 /*
     @Override
     public void loginAuthentication(LoginDTO loginDTO) throws InvalidLoginException {
@@ -73,11 +93,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }*/
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserLoginData user = userRepository.findFirstByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found; with username: " + username));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        System.out.println(user.getUsername());
-        return user;
+        if (userLoginDataRepository.existsByEmail(email)) {
+
+            UserLoginData user = userLoginDataRepository.findFirstByEmail(email);
+            return user;
+        } else{
+            throw new IllegalArgumentException("User not found with email: " + email);
+        }
+    }
+
+    public void validRegister(RegisterDTO registerDTO) {
+        if (registerDTO.getPassword().equals(registerDTO.getRepeatPassword()) && !registerDTO.getPassword().isEmpty()) {
+
+            if (!registerDTO.getEmail().contains("@")) {
+
+            }
+
+            if (registerDTO.getEmail().isEmpty()) {
+
+            }
+        }
     }
 }

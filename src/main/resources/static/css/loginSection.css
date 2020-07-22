@@ -53,6 +53,7 @@ button {
 
 body {
   font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+  font-weight: 400;
   font-size: 14px;
 }
 
@@ -62,7 +63,6 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 36px;
-
 }
 
 h2 {
@@ -96,34 +96,6 @@ body {
 
 }
 
-.forgotten-password {
-
- color: #555;
- text-transform: capitalize;
-
- font-family: Open Sans Condensed;
- display: block;
- font-weight: lighter;
- font-size: 35 px;
-
- margin-top: 20px;
- margin-bottom: 5px
-
-}
-
-.password-text-reset {
-
-  font-family: Open Sans Condensed;
-  font-size: 18px;
-  font-weight: lighter;
-  letter-spacing: 1px;
-
-  color: #555;
-  text-transform: capitalize;
-  display: block;
-
-  margin-bottom: 20px;
-}
 
 .user {
 
@@ -131,7 +103,7 @@ body {
   width: 35%;
   margin-left: auto;
   margin-right: auto;
-  margin top: 40px;
+  margin-top: 40px;
   margin-bottom: 20px; 
 
   border-radius: 50%;
@@ -142,12 +114,10 @@ body {
 .form {
   border-radius: 15px;
 
-
-
   background-color: #ffffff;
   width: 500px;
-  height: 410px;
-  margin: 150px auto 10px auto;
+  height: 595px;
+  margin: 90px auto 10px auto;
   padding: 30px;
   overflow: hidden;
   text-align: center;
@@ -163,6 +133,7 @@ input {
   width: 100%;
   font-size: 14px;
   font-family: inherit;
+ 
 }
 
 .btn {
@@ -181,7 +152,7 @@ input {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 10px;
-  margin-top: 70px;
+  margin-top: 5px;
 }
 
 .btn--radius {
@@ -239,7 +210,7 @@ a {
 
 .Register{
 
-  border-radius: 20px;
+border-radius: 20px;
 
   border: none;
   background: #5f2c82;  
@@ -309,5 +280,5 @@ a {
   display: block;
   margin-bottom: 5px;
 
-  margin-top: 45px;
+  margin-top: 10px;
 }
