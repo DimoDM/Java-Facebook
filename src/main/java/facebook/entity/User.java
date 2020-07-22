@@ -8,7 +8,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(name = "first_name", nullable = false)
@@ -22,6 +22,12 @@ public class User {
 
     @Column(name = "date_of_birth")
     private String dateOfBirth;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @OneToOne(targetEntity = UserLoginData.class)
+    private UserLoginData userLoginData;
 
     @OneToOne
     private Picture profilePicture;
@@ -68,6 +74,21 @@ public class User {
     @JoinTable(name = "user_friends", joinColumns = @JoinColumn(name = "user_id") , inverseJoinColumns = @JoinColumn(name = "friendId") )
     private Set<User> userFriends;
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public UserLoginData getUserLoginData() {
+        return userLoginData;
+    }
+
+    public void setUserLoginData(UserLoginData userLoginData) {
+        this.userLoginData = userLoginData;
+    }
 
     public Set<Post> getPosts() {
         return posts;

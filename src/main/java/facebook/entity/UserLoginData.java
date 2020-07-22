@@ -13,14 +13,11 @@ import java.util.Set;
 public class UserLoginData implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(name = "email")
     private String email;
-
-    @Column(name = "username")
-    private String username;
 
     @Column(name = "password")
     private String password;
@@ -33,6 +30,9 @@ public class UserLoginData implements UserDetails {
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<Role> roles;
+
+    @OneToOne(targetEntity = User.class)
+    private User user;
 
     public UserLoginData() {}
 
@@ -50,10 +50,6 @@ public class UserLoginData implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     @Override
@@ -76,10 +72,6 @@ public class UserLoginData implements UserDetails {
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -87,6 +79,11 @@ public class UserLoginData implements UserDetails {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
     }
 
     public void setPassword(String password) {
@@ -103,5 +100,17 @@ public class UserLoginData implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
