@@ -46,8 +46,6 @@ public class PostServiceImpl implements PostService {
             newPost.setText(postDTO.getPostText());
 
         newPost.setPoster(authUser);
-
-        String debug = "";
         postRepository.save(newPost);
 
     }
