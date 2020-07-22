@@ -71,8 +71,17 @@ public class User {
     private Set<Picture> profilePictures;
 
     @ManyToMany
-    @JoinTable(name = "user_friends", joinColumns = @JoinColumn(name = "user_id") , inverseJoinColumns = @JoinColumn(name = "friendId") )
+    @JoinTable(name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_id") ,
+            inverseJoinColumns = @JoinColumn(name = "friendId") )
     private Set<User> userFriends;
+
+    @ManyToMany
+    @JoinTable(name = "friends_requests",
+            joinColumns = @JoinColumn(name = "requester_id"),
+            inverseJoinColumns = @JoinColumn(name = "receiver_id"))
+    private Set<FriendRequest> friendRequests;
+
 
     public String getGender() {
         return gender;
@@ -89,6 +98,7 @@ public class User {
     public void setUserLoginData(UserLoginData userLoginData) {
         this.userLoginData = userLoginData;
     }
+
 
     public Set<Post> getPosts() {
         return posts;
@@ -231,5 +241,13 @@ public class User {
 
     public void setUserFriends(Set<User> userFriends) {
         this.userFriends = userFriends;
+    }
+
+    public Set<FriendRequest> getFriendRequests() {
+        return friendRequests;
+    }
+
+    public void setFriendRequests(Set<FriendRequest> friendRequests) {
+        this.friendRequests = friendRequests;
     }
 }

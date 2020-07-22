@@ -13,17 +13,17 @@ public class UserFriends {
 
     @Id
     @Column
-    private int friendId;
+    private Long friendId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public int getFriendId() {
+    public Long getFriendId() {
         return friendId;
     }
 
-    public void setFriendId(int friendId) {
+    public void setFriendId(Long friendId) {
         this.friendId = friendId;
     }
 

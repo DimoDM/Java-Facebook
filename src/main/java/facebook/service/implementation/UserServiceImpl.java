@@ -4,6 +4,7 @@ import facebook.dto.RegisterDTO;
 import facebook.entity.Role;
 import facebook.entity.User;
 import facebook.entity.UserLoginData;
+import facebook.exception.UserNotFoundException;
 import facebook.repository.UserLoginDataRepository;
 import facebook.repository.UserRepository;
 import facebook.service.contract.UserService;
@@ -19,7 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
 
 
     private final UserLoginDataRepository userLoginDataRepository;
@@ -66,23 +67,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userLoginDataRepository.save(userLoginData);
         setUserToUserLoginData(userLoginData, user);
 
-
+    
 
 
 /*
         UserLoginData newUser = new UserLoginData();
         User user = new User();
 
-
-        newUser.setEmail(registerDTO.getEmail());
-        newUser.setPhoneNumber(registerDTO.getPhone());
-        newUser.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
-
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleService.getUserRole());
-        newUser.setRoles(roles);
-
-        userRepository.save(newUser);*/
     }
 
 
@@ -116,4 +107,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
         }
     }
+
+    @Override
+    public User getAuthUser(String username){
+        UserLoginData userLoginData = userLoginDataRepository.findFirstByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return userLoginData.getUser();
+    }
+
 }
