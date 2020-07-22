@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,52 +28,55 @@ public class UserServiceImpl implements UserService {
     private final RoleService roleService;
     private final BCryptPasswordEncoder passwordEncoder;
 
+
     @Autowired
-    public UserServiceImpl(UserLoginDataRepository userRepository, UserRepository userRepository1, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
-        this.userLoginDataRepository = userRepository;
-        this.userRepository = userRepository1;
+    public UserServiceImpl(UserLoginDataRepository userLoginDataRepository, UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
+        this.userLoginDataRepository = userLoginDataRepository;
+        this.userRepository = userRepository;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Transactional
+    public void setUserToUserLoginData(UserLoginData userLoginData, User user){
+        user.setUserLoginData(userLoginData);
+        userRepository.save(user);
     }
 
     @Override
     public void register(RegisterDTO registerDTO) {
 
-        if(registerDTO.getPassword().equals(registerDTO.getPasswordTest()) && !registerDTO.getPassword().isEmpty()) {
+        //validRegister(registerDTO);
 
-            if(!registerDTO.getEmail().contains("@")) {
+        User user = new User();
+        UserLoginData userLoginData = new UserLoginData();
 
-            }
+        user.setFirstName(registerDTO.getFirstName());
+        user.setDateOfBirth(registerDTO.getDateOfBirth());
+        user.setSecondName(registerDTO.getLastName());
+        user.setGender(registerDTO.getGender());
+        userLoginData.setEmail(registerDTO.getEmail());
+        userLoginData.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
 
-            if(registerDTO.getUsername().isEmpty()) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getUserRole());
+        userLoginData.setRoles(roles);
 
-            }
+        userRepository.save(user);
+        userLoginData.setUser(user);
+        userLoginDataRepository.save(userLoginData);
+        setUserToUserLoginData(userLoginData, user);
 
-            if(registerDTO.getPhone().isEmpty()) {
-
-            }
-
-            UserLoginData newUserData = new UserLoginData();
-            User user = new User();
+    
 
 
-
-            newUserData.setEmail(registerDTO.getEmail());
-            newUserData.setUsername(registerDTO.getUsername());
-            newUserData.setPhoneNumber(registerDTO.getPhone());
-            newUserData.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
-            user.setFirstName(registerDTO.getFirstName());
-            user.setSecondName(registerDTO.getLastName());
-            userRepository.save(user);
-
-            Set<Role> roles = new HashSet<>();
-            roles.add(roleService.getUserRole());
-            newUserData.setRoles(roles);
-            newUserData.setUser(user);
-            userLoginDataRepository.save(newUserData);
-        }
+/*
+        UserLoginData newUser = new UserLoginData();
+        User user = new User();
 
     }
+
+
 /*
     @Override
     public void loginAuthentication(LoginDTO loginDTO) throws InvalidLoginException {
@@ -80,10 +84,28 @@ public class UserServiceImpl implements UserService {
     }*/
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserLoginData user = userLoginDataRepository.findFirstByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("User not found; with username: " + username));
-        return user;
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        if (userLoginDataRepository.existsByEmail(email)) {
+
+            UserLoginData user = userLoginDataRepository.findFirstByEmail(email);
+            return user;
+        } else{
+            throw new IllegalArgumentException("User not found with email: " + email);
+        }
+    }
+
+    public void validRegister(RegisterDTO registerDTO) {
+        if (registerDTO.getPassword().equals(registerDTO.getRepeatPassword()) && !registerDTO.getPassword().isEmpty()) {
+
+            if (!registerDTO.getEmail().contains("@")) {
+
+            }
+
+            if (registerDTO.getEmail().isEmpty()) {
+
+            }
+        }
     }
 
     @Override

@@ -32,6 +32,6 @@ public class RoleService {
             role = new Role();
             role.setAuthority(userRole);
             roleRepository.save(role);
-        }
+        } 
     }
 }
