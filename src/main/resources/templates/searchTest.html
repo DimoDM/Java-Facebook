@@ -5,8 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-<ul th:each="user: ${}">
-    <li th></li>
+<ul th:each="user: ${fullMatchUsers}">
+    <li th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></li>
+</ul>
+<h1>SECOND</h1>
+<ul th:each="user: ${firstNameMatchUsers}">
+    <li th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></li>
+</ul>
+<h1>SECOND</h1>
+<ul th:each="user: ${secondNameMatchUsers}">
+    <li th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></li>
 </ul>
 </body>
 </html>

@@ -33,7 +33,7 @@ public class UserLoginData implements UserDetails {
     private Set<Role> roles;
 
     @Column(name = "is_enabled")
-    private boolean isEnabled;
+    private Boolean isEnabled;
   
     @OneToOne(targetEntity = User.class)
     private User user;

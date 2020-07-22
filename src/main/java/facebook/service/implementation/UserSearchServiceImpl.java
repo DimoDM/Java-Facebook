@@ -27,14 +27,16 @@ public class UserSearchServiceImpl {
 
     public List<User> findByFirstName(UserSearchDTO userSearchDTO){
         String firstName = userSearchDTO.getName().split(" ")[0];
+        String secondName = userSearchDTO.getName().split(" ")[1];
 
-        return userRepository.findAllByFirstNameIgnoreCase(firstName);
+        return userRepository.findAllByFirstNameIgnoreCaseAndSecondNameNotIgnoreCase(firstName, secondName);
     }
 
     public List<User> findBySecondName(UserSearchDTO userSearchDTO){
-        String secondName = userSearchDTO.getName().split(" ")[0];
+        String firstName = userSearchDTO.getName().split(" ")[0];
+        String secondName = userSearchDTO.getName().split(" ")[1];
 
-        return userRepository.findAllBySecondNameIgnoreCase(secondName);
+        return userRepository.findAllBySecondNameIgnoreCaseAndFirstNameNotIgnoreCase(secondName, firstName);
     }
 
 }
