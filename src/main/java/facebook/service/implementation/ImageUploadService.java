@@ -11,9 +11,14 @@ import java.nio.file.Paths;
 @Service
 public class ImageUploadService {
 
-    public String uploadImage(MultipartFile image) throws IOException {
+    public void uploadImage(MultipartFile image) throws IOException {
         Path filepath = Paths.get(Constants.PICTURE_PATH, image.getOriginalFilename());
         image.transferTo(filepath);
-        return filepath.toString().replace(Constants.PATH_REFORMER, "");
+    }
+
+    public Path uploadImageAndGetPath(MultipartFile image) throws IOException {
+        Path filepath = Paths.get(Constants.PICTURE_PATH, image.getOriginalFilename());
+        image.transferTo(filepath);
+        return filepath;
     }
 }

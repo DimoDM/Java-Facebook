@@ -1,5 +1,6 @@
 package facebook.service.implementation;
 
+import constants.Constants;
 import facebook.dto.PostDTO;
 import facebook.entity.Picture;
 import facebook.entity.Post;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.nio.file.Path;
 
 @Transactional
 @Service
@@ -37,7 +39,9 @@ public class PostServiceImpl implements PostService {
         Post newPost = new Post();
         Picture picture = new Picture();
         if(postDTO.getPostImage() != null && !postDTO.getPostImage().isEmpty()){
-            picture.setImageURL(imageUploadService.uploadImage(postDTO.getPostImage()));
+            Path path = imageUploadService.uploadImageAndGetPath(postDTO.getPostImage());
+            String filePathFromFolder = path.toString().replace(Constants.PATH_REFORMER,"");
+            picture.setImageURL(filePathFromFolder);
             picture.setPictureHolder(authUser);
             pictureRepository.save(picture);
             newPost.setPicture(picture);
