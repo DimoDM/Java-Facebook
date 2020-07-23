@@ -14,7 +14,7 @@ import java.util.Set;
 public class UserLoginData implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "email", unique = true)

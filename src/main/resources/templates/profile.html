@@ -118,16 +118,16 @@
         </div>
         <div class="profile-feed">
             <div class="post-creator">
-                <form>
+                <form action="/createPost" method="post" enctype="multipart/form-data">
                     <div class="post-info-div">
-                        <img th:if="${user.getProfilePicture()!=null}"
-                             th:src="${user.getProfilePicture().getImageURL()}" alt="Profile picture" class="post-pp">
-                        <img th:if="${user.getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
+                        <img th:if="${authUser.getProfilePicture()!=null}"
+                             th:src="${authUser.getProfilePicture().getImageURL()}" alt="Profile picture" class="post-pp">
+                        <img th:if="${authUser.getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
                              class="post-pp">
-                        <input type="text" placeholder="Say something to your friends" class="post-text-field">
+                        <input type="text" placeholder="Say something to your friends" class="post-text-field" name="postText">
                     </div>
                     <div class="post-creator-buttons">
-                        <button>Image</button>
+                        <input type="file" name="postImage">
                         <button>Tag Friend</button>
                         <button type="submit">Post</button>
                     </div>
