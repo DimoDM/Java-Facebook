@@ -32,7 +32,7 @@ public class FriendRequestController extends BaseController {
 
     @PostMapping("/denyRequest")
     public ModelAndView declineFriendRequest(@ModelAttribute UserIdDTO userIdDTO, Principal principal) throws UserByIdNotFoundException {
-        friendRequestService.declineFriendRequest(2L,userService.getAuthUser(principal.getName()));
+        friendRequestService.declineFriendRequest(userIdDTO.getUserId(),userService.getAuthUser(principal.getName()));
         return redirect("/"+userIdDTO);
     }
 

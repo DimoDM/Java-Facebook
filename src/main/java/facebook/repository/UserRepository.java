@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     List<User> findAllBySecondNameIgnoreCaseAndFirstNameNotIgnoreCase(String secondName, String firstName);
 
+    List<User> findAllByFirstNameOrSecondNameIgnoreCase(String firstName, String secondName);
+
 }

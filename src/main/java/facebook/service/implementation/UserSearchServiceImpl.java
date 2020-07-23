@@ -39,4 +39,10 @@ public class UserSearchServiceImpl {
         return userRepository.findAllBySecondNameIgnoreCaseAndFirstNameNotIgnoreCase(secondName, firstName);
     }
 
+    public List<User> findByAnyOfNames(UserSearchDTO userSearchDTO){
+        String firstOrLastName = userSearchDTO.getName();
+
+        return userRepository.findAllByFirstNameOrSecondNameIgnoreCase(firstOrLastName, firstOrLastName);
+    }
+
 }
