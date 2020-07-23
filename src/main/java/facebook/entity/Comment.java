@@ -27,6 +27,9 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
+    @OneToOne
+    private Picture picture;
+
     public Set<Like> getLikes() {
         return likes;
     }
@@ -76,5 +79,13 @@ public class Comment {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 }

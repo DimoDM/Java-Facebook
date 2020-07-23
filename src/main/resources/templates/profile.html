@@ -156,25 +156,28 @@
                     <div class="post-buttons" style="display: block">
                         <button>Like</button>
                     </div>
-                    <div class="create-comment">
+                    <div class="create-comment ">
                         <img th:src="${authUser.getProfilePicture().getImageURL()}" alt="">
-                        <form action="/createComment" method="post">
-                            <input type="text" name="text" class="comment-write-text" placeholder="Say something about this psot">
+                        <form action="/createComment" method="post" enctype="multipart/form-data" >
+                            <input type="text" name="text" class="comment-write-text"
+                                   placeholder="Say something about this psot">
                             <input type="number" th:value="${post.getId()}" style="display: none" name="postID">
+                            <input type="file" name="commentPhoto">
                             <button type="submit">Comment</button>
                         </form>
                     </div>
-                    <div class="comments">
-                        <div th:each="comment : ${post.getComments()}" class="comments">
-                            <img th:src="${comment.getCommenter().getProfilePicture().getImageURL()}" alt="User picture"
-                                 class="comment-photo">
-                            <p th:value="${comment.getCommenter().getFirstName()}"></p>
-                            <p class="comment-text" th:value="${comment.getText()}"></p>
-                            <form action="/likeComment">
-                                <input type="number" th:value="${comment.getId()}" style="display: none">
-                                <input type="submit" value="like">
-                            </form>
-                        </div>
+
+                    <div th:each="comment : ${post.getComments()}" class="comments">
+                        <img  th:src="${comment.getCommenter().getProfilePicture().getImageURL()}" alt="User picture"
+                             class="commenter-profile-photo">
+                        <h3 th:text="${comment.getCommenter().getFirstName()}"></h3>
+                        <p th:if="${comment.getText()!=null && !comment.getText().isEmpty()}" class="comment-text"
+                           th:text="${comment.getText()}"></p>
+                        <img  th:if="${comment.getPicture() != null}" th:src="${comment.getPicture().getImageURL()} " class="comments-photo" alt="">
+                        <form action="/likeComment">
+                            <input type="number" th:value="${comment.getId()}" style="display: none">
+                            <button type="submit">Like</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -243,21 +243,20 @@ body{
     width: 50px;
     float: left;
 }
-.comments{
-    width: 100%;
-    display: block;
-}
+
 .comment-text{
     width: 200px;
 }
 .create-comment{
     width: 80%;
     margin-left: 10%;
+    margin-bottom: 20px;
 }
 
 .create-comment img{
     width: 50px;
     float: left;
+    border-radius: 100%;
 }
 
 .create-comment  button{
@@ -271,4 +270,24 @@ body{
     height: 50px;
     width: 60%;
     padding-left: 10px;
+}
+
+.comments{
+    width: 80%;
+    margin-left: 10%;
+    border: gray 1px solid;
+    margin-bottom: 20px;
+}
+
+.commenter-profile-photo{
+    width: 50px;
+    border-radius: 100%;
+    float: left;
+
+}
+
+.comments-photo{
+    width: 90%;
+    max-height: 400px;
+    border: none;
 }
