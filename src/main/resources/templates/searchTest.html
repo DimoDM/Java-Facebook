@@ -11,9 +11,12 @@
 
     <ul th:each="user: ${fullMatchUsers}">
         <li>
-<!--    <img th:src="@{resources/static/images/avatar.png}">-->
-
+            <img th:if="${user.getProfilePicture().getImageURL()!=null}" th:src="${user.getProfilePicture().getImageURL()}">
             <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
+            <form action="/sendFriendRequest" method="post">
+                <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
+                <input type="submit" value="Add friend">
+            </form>
         </li>
     </ul>
     <h1>SECOND</h1>

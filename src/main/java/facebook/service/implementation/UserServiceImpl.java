@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
         user.setSecondName(registerDTO.getLastName());
         user.setGender(registerDTO.getGender());
         Picture picture = new Picture();
-        picture.setImageURL("src/main/resources/static/images/avatar.png");
+        picture.setImageURL("images/avatar.png");
         pictureRepository.save(picture);
         user.setProfilePicture(picture);
         userLoginData.setEmail(registerDTO.getEmail());
