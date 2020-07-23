@@ -150,7 +150,7 @@
                         <img th:if="${post.getPicture() != null}" th:src="${post.getPicture().getImageURL()}"
                              alt="Image">
                     </div>
-                    <div class="post-buttons" style="display: block">
+                    <div class="like-form" style="display: block">
                         <form action="/likePost" method="post">
                             <input type="number" name="postId" th:value="${post.getId()}" style="display: none">
                             <input type="submit" value="Like" class="like-button">
@@ -174,10 +174,11 @@
                         <p th:if="${comment.getText()!=null && !comment.getText().isEmpty()}" class="comment-text"
                            th:text="${comment.getText()}"></p>
                         <img  th:if="${comment.getPicture() != null}" th:src="${comment.getPicture().getImageURL()} " class="comments-photo" alt="">
-                        <form action="/likeComment">
-                            <input type="number" th:value="${comment.getId()}" style="display: none">
+                        <form action="/likeComment" method="post">
+                            <input type="number" th:value="${comment.getId()}" name="commentId" style="display: none">
                             <button type="submit">Like</button>
                         </form>
+                        <p th:text="${comment.getLikes().size()} + ' people liked this comment'"></p>
                     </div>
                 </div>
             </div>

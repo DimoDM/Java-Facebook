@@ -1,6 +1,6 @@
 package facebook.controller;
 
-import facebook.dto.LikePostDTO;
+import facebook.dto.LikeDTO;
 import facebook.exception.UserByEmailNotFoundException;
 import facebook.service.contract.LikeService;
 import facebook.service.contract.UserService;
@@ -27,8 +27,15 @@ public class LikeController extends BaseController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/likePost")
-    public ModelAndView likePost(@ModelAttribute LikePostDTO likeDTO, Principal principal) throws UserByEmailNotFoundException {
+    public ModelAndView likePost(@ModelAttribute LikeDTO likeDTO, Principal principal) throws UserByEmailNotFoundException {
         likeService.likePost(likeDTO,userService.getAuthUser(principal.getName()));
+        return redirect("/");
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/likeComment")
+    public ModelAndView likeComment(@ModelAttribute LikeDTO likeDTO, Principal principal) throws UserByEmailNotFoundException {
+        likeService.likeComment(likeDTO,userService.getAuthUser(principal.getName()));
         return redirect("/");
     }
 

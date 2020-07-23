@@ -216,15 +216,21 @@ body{
     width: 100%;
 }
 
-.post-buttons{
+.like-form{
     width: auto;
-    margin-left: 300px;
+    margin-left: 30px;
 }
 
-.post-buttons button{
+.like-form p{
+    margin-top: 10px;
+    margin-left:15px ;
+}
+
+.like-button{
     width: 100px;
     cursor: pointer;
     height: 30px;
+    float: left;
     background-color: rgb(11, 79, 224);
     border: rgb(35, 93, 255) 1px solid;
     margin: 10px 0;
