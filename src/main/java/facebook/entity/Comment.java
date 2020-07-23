@@ -24,6 +24,9 @@ public class Comment {
     @Column(name = "date")
     private String date;
 
+    @OneToOne
+    Picture commentPicture;
+
     @Column(name = "text")
     private String text;
 
