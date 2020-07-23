@@ -157,11 +157,11 @@
                         <button>Like</button>
                     </div>
                     <div class="create-comment">
-                        <img th:src="${authUser.getProfilePicture()}" alt="">
+                        <img th:src="${authUser.getProfilePicture().getImageURL()}" alt="">
                         <form action="/createComment" method="post">
-                            <input type="text" name="text">
+                            <input type="text" name="text" class="comment-write-text" placeholder="Say something about this psot">
                             <input type="number" th:value="${post.getId()}" style="display: none" name="postID">
-                            <input type="submit" value="Comment">
+                            <button type="submit">Comment</button>
                         </form>
                     </div>
                     <div class="comments">

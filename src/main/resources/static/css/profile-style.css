@@ -248,12 +248,27 @@ body{
     display: block;
 }
 .comment-text{
-    z-index: 2;
-    display: inline;
-    color: black;
     width: 200px;
-    font-size: 16px;
+}
+.create-comment{
+    width: 80%;
+    margin-left: 10%;
+}
+
+.create-comment img{
+    width: 50px;
     float: left;
 }
 
+.create-comment  button{
+    background: white;
+    border: #2c6ed5 1px solid;
+    padding: 5px;
+}
 
+.comment-write-text{
+    border: none;
+    height: 50px;
+    width: 60%;
+    padding-left: 10px;
+}
