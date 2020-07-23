@@ -10,4 +10,6 @@ public interface PostRepository extends JpaRepository<Post,Long> {
 
     Set<Post> findAllByPoster(User user);
 
+    Post findFirstById(Long id);
+
 }

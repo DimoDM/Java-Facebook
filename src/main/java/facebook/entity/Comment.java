@@ -24,6 +24,9 @@ public class Comment {
     @Column(name = "date")
     private String date;
 
+    @Column(name = "text")
+    private String text;
+
     public Set<Like> getLikes() {
         return likes;
     }
@@ -65,5 +68,13 @@ public class Comment {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

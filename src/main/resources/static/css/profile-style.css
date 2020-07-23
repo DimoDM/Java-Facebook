@@ -218,7 +218,7 @@ body{
 
 .post-buttons{
     width: auto;
-    margin-left: 180px;
+    margin-left: 300px;
 }
 
 .post-buttons button{
@@ -237,6 +237,23 @@ body{
     position: absolute;
     top: 300px;
     right: 100px;
+}
+
+.comment-photo {
+    width: 50px;
+    float: left;
+}
+.comments{
+    width: 100%;
+    display: block;
+}
+.comment-text{
+    z-index: 2;
+    display: inline;
+    color: black;
+    width: 200px;
+    font-size: 16px;
+    float: left;
 }
 
 

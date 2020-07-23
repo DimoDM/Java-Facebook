@@ -15,7 +15,8 @@
         </form>
         <div class="user-buttons">
             <a th:href="@{${authUser.getId()}}">
-                <img th:if="${authUser.getProfilePicture()!=null}" th:src="${authUser.getProfilePicture().getImageURL()}"
+                <img th:if="${authUser.getProfilePicture()!=null}"
+                     th:src="${authUser.getProfilePicture().getImageURL()}"
                      alt="User Profile Picture" class="user-bar-photo">
                 <img th:if="${authUser.getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
                      class="user-bar-photo">
@@ -33,9 +34,9 @@
             <script>
                 function show_hide_more() {
                     let click = document.document.getElementById("more-button-drop-down";
-                    if (click.style.display === "none"){
+                    if (click.style.display === "none") {
                         click.style.display = "block";
-                    }else
+                    } else
                         click.style.display = "none";
                 }
             </script>
@@ -52,21 +53,23 @@
 
                 <th:block th:if="${!friends.contains(authUser) && !user.equals(authUser) && friendRequest == null}">
                     <form action="/sendFriendRequest" method="post">
-                        <input type="number" th:value="${user.getId()}"  name="userId">
+                        <input type="number" th:value="${user.getId()}" name="userId">
                         <button type="submit">Add friend</button>
                     </form>
                 </th:block>
-                <th:block th:if="${friendRequest != null && !user.equals(authUser) && friendRequest.getReceiver().equals(authUser)}">
-                        <form action="/acceptRequest" method="post">
-                            <input type="number" th:value="${user.getId()}" name="userId">
-                            <button type="submit">Accept Request</button>
-                        </form>
+                <th:block
+                        th:if="${friendRequest != null && !user.equals(authUser) && friendRequest.getReceiver().equals(authUser)}">
+                    <form action="/acceptRequest" method="post">
+                        <input type="number" th:value="${user.getId()}" name="userId">
+                        <button type="submit">Accept Request</button>
+                    </form>
                 </th:block>
-                <th:block th:if="${friendRequest != null && !user.equals(authUser) && friendRequest.getRequester().equals(authUser)}">
-                        <form action="/cancelRequest" method="post">
-                            <input type="number" th:value="${user.getId()}" name="userId">
-                            <button type="submit">Cancel Request</button>
-                        </form>
+                <th:block
+                        th:if="${friendRequest != null && !user.equals(authUser) && friendRequest.getRequester().equals(authUser)}">
+                    <form action="/cancelRequest" method="post">
+                        <input type="number" th:value="${user.getId()}" name="userId">
+                        <button type="submit">Cancel Request</button>
+                    </form>
                 </th:block>
                 <th:block th:if="${friends.contains(authUser) && !user.equals(authUser)}">
                     <form action="/removeFriend" method="post">
@@ -104,7 +107,8 @@
                     <h3>Friends</h3>
                     <div>
                         <a th:each="friend : ${friends}" th:href="${'/' + friend.getId()}">
-                            <img th:if="${friend.getProfilePicture() != null}" th:src="${friend.getProfilePicture().getImageURL()}" alt="">
+                            <img th:if="${friend.getProfilePicture() != null}"
+                                 th:src="${friend.getProfilePicture().getImageURL()}" alt="">
                             <img th:if="${friend.getProfilePicture() == null}" src="../images/profile-pic.png" alt="">
                             <p th:text="${friend.getFirstName() + ' ' + friend.getSecondName()}"></p>
                         </a>
@@ -121,10 +125,12 @@
                 <form action="/createPost" method="post" enctype="multipart/form-data">
                     <div class="post-info-div">
                         <img th:if="${authUser.getProfilePicture()!=null}"
-                             th:src="${authUser.getProfilePicture().getImageURL()}" alt="Profile picture" class="post-pp">
+                             th:src="${authUser.getProfilePicture().getImageURL()}" alt="Profile picture"
+                             class="post-pp">
                         <img th:if="${authUser.getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
                              class="post-pp">
-                        <input type="text" placeholder="Say something to your friends" class="post-text-field" name="postText">
+                        <input type="text" placeholder="Say something to your friends" class="post-text-field"
+                               name="postText">
                     </div>
                     <div class="post-creator-buttons">
                         <input type="file" name="postImage">
@@ -147,10 +153,28 @@
                         <img th:if="${post.getPicture() != null}" th:src="${post.getPicture().getImageURL()}"
                              alt="Image">
                     </div>
-                    <div class="post-buttons">
+                    <div class="post-buttons" style="display: block">
                         <button>Like</button>
-                        <button>Comment</button>
-                        <button>Share</button>
+                    </div>
+                    <div class="create-comment">
+                        <img th:src="${authUser.getProfilePicture()}" alt="">
+                        <form action="/createComment" method="post">
+                            <input type="text" name="text">
+                            <input type="number" th:value="${post.getId()}" style="display: none" name="postID">
+                            <input type="submit" value="Comment">
+                        </form>
+                    </div>
+                    <div class="comments">
+                        <div th:each="comment : ${post.getComments()}" class="comments">
+                            <img th:src="${comment.getCommenter().getProfilePicture().getImageURL()}" alt="User picture"
+                                 class="comment-photo">
+                            <p th:value="${comment.getCommenter().getFirstName()}"></p>
+                            <p class="comment-text" th:value="${comment.getText()}"></p>
+                            <form action="/likeComment">
+                                <input type="number" th:value="${comment.getId()}" style="display: none">
+                                <input type="submit" value="like">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
