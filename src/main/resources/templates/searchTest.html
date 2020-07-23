@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="searchUser-style.css">
+    <link th:href="@{css/searchUser-style.css}" rel="stylesheet" />
 </head>
 <body>
 
 <ul>
-    <li >
-        <img src="images.jpg">
-        <a href="/searchUsers">Georgi Damon</a>
-    </li>
+
+    <ul th:each="user: ${fullMatchUsers}">
+        <li>
+<!--    <img th:src="@{resources/static/images/avatar.png}">-->
+
+            <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
+        </li>
+    </ul>
+    <h1>SECOND</h1>
+    <ul th:each="user: ${firstNameMatchUsers}">
+        <li th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}">
+
+        </li>
+    </ul>
+    <h1>SECOND</h1>
+    <ul th:each="user: ${secondNameMatchUsers}">
+        <li th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></li>
+    </ul>
+
+
     <li>
-        <img src="images.jpg">
-        <a href="/searchUsers">Georgi Damon</a>
-    </li>
-    <li>
-        <img src="images.jpg">
+        <img src="../static/images/images.jpg">
         <a href="/searchUsers">Georgi Damon</a>
         <input type="submit" formaction="/sendFriendRequest" value="Add friend">
     </li>
@@ -29,6 +41,7 @@
 
 
 
+src/main/resources/static/images/avatar.png
 
 
 
@@ -42,15 +55,3 @@
 
 
 
-
-<!--<ul th:each="user: ${fullMatchUsers}">-->
-<!--    <li th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></li>-->
-<!--</ul>-->
-<!--<h1>SECOND</h1>-->
-<!--<ul th:each="user: ${firstNameMatchUsers}">-->
-<!--    <li th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></li>-->
-<!--</ul>-->
-<!--<h1>SECOND</h1>-->
-<!--<ul th:each="user: ${secondNameMatchUsers}">-->
-<!--    <li th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}"></li>-->
-<!--</ul>-->
