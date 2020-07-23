@@ -17,7 +17,7 @@ public class UserLoginData implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
@@ -33,7 +33,7 @@ public class UserLoginData implements UserDetails {
     private Set<Role> roles;
 
     @Column(name = "is_enabled")
-    private boolean isEnabled;
+    private Boolean isEnabled;
   
     @OneToOne(targetEntity = User.class)
     private User user;
