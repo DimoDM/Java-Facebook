@@ -1,6 +1,6 @@
 package facebook.service.implementation;
 
-import facebook.dto.LikeDTO;
+import facebook.dto.LikePostDTO;
 import facebook.entity.Like;
 import facebook.entity.Post;
 import facebook.entity.User;
@@ -26,8 +26,8 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
-    public void likePost(LikeDTO likeDTO, User authUser) {
-        Post post = postRepository.findFirstById(likeDTO.getPosId());
+    public void likePost(LikePostDTO likeDTO, User authUser) {
+        Post post = postRepository.findFirstById(likeDTO.getPostId());
         if(!likeRepository.existsByPost(post)){
             Like like = new Like();
             like.setPost(post);
@@ -36,7 +36,7 @@ public class LikeServiceImpl implements LikeService {
             post.getLikes().add(like);
             postRepository.save(post);
         }else {
-            Like like = likeRepository.findFirstByPost(post);
+            Like like = likeRepository.findFirstByPostAndLiker(post,authUser);
             post.getLikes().remove(like);
             likeRepository.delete(like);
         }

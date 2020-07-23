@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -28,7 +29,7 @@ public class CommentController extends BaseController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/createComment")
-    public ModelAndView createComment(@ModelAttribute CommentDTO commentDTO, Principal principal) throws UserByEmailNotFoundException {
+    public ModelAndView createComment(@ModelAttribute CommentDTO commentDTO, Principal principal) throws UserByEmailNotFoundException, IOException {
         commentService.createComment(commentDTO, userService.getAuthUser(principal.getName()));
         return redirect("/");
     }

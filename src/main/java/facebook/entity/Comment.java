@@ -30,6 +30,9 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
+    @OneToOne
+    private Picture picture;
+
     public Set<Like> getLikes() {
         return likes;
     }
@@ -81,11 +84,11 @@ public class Comment {
         this.text = text;
     }
 
-    public Picture getCommentPicture() {
-        return commentPicture;
+    public Picture getPicture() {
+        return picture;
     }
 
-    public void setCommentPicture(Picture commentPicture) {
-        this.commentPicture = commentPicture;
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 }
