@@ -1,10 +1,12 @@
 package facebook.service.implementation;
 
 import facebook.dto.RegisterDTO;
+import facebook.entity.Picture;
 import facebook.entity.Role;
 import facebook.entity.User;
 import facebook.entity.UserLoginData;
 import facebook.exception.UserNotFoundException;
+import facebook.repository.PictureRepository;
 import facebook.repository.UserLoginDataRepository;
 import facebook.repository.UserRepository;
 import facebook.service.contract.UserService;
@@ -27,18 +29,20 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final PictureRepository pictureRepository;
 
 
     @Autowired
-    public UserServiceImpl(UserLoginDataRepository userLoginDataRepository, UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserLoginDataRepository userLoginDataRepository, PictureRepository pictureRepository, UserRepository userRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
         this.userLoginDataRepository = userLoginDataRepository;
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.pictureRepository = pictureRepository;
     }
 
     @Transactional
-    public void setUserToUserLoginData(UserLoginData userLoginData, User user){
+    public void setUserToUserLoginData(UserLoginData userLoginData, User user) {
         user.setUserLoginData(userLoginData);
         userRepository.save(user);
     }
@@ -55,6 +59,10 @@ public class UserServiceImpl implements UserService {
         user.setDateOfBirth(registerDTO.getDateOfBirth());
         user.setSecondName(registerDTO.getLastName());
         user.setGender(registerDTO.getGender());
+        Picture picture = new Picture();
+        picture.setImageURL("images/avatar.png");
+        pictureRepository.save(picture);
+        user.setProfilePicture(picture);
         userLoginData.setEmail(registerDTO.getEmail());
         userLoginData.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
 
@@ -67,8 +75,8 @@ public class UserServiceImpl implements UserService {
         userLoginDataRepository.save(userLoginData);
         setUserToUserLoginData(userLoginData, user);
 
-    
 
+    }
 
 /*
         UserLoginData newUser = new UserLoginData();
@@ -90,7 +98,7 @@ public class UserServiceImpl implements UserService {
 
             UserLoginData user = userLoginDataRepository.findFirstByEmail(email);
             return user;
-        } else{
+        } else {
             throw new IllegalArgumentException("User not found with email: " + email);
         }
     }
@@ -109,10 +117,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getAuthUser(String username){
-        UserLoginData userLoginData = userLoginDataRepository.findFirstByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return userLoginData.getUser();
+    public User getAuthUser(String email) {
+        if (userLoginDataRepository.existsByEmail(email)) {
+
+            UserLoginData user = userLoginDataRepository.findFirstByEmail(email);
+            return user.getUser();
+        } else {
+            throw new IllegalArgumentException("User not found with email: " + email);
+        }
+
     }
 
 }
