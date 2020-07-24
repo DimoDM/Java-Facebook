@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>UpdateUserInformation</title>
+    <link rel="stylesheet" type="text/css" href="updateUserInfoForm.css">
+</head>
+<body>
+<h2 class="title">Update Your Profile Information</h2>
+<form action="#" th:action="@{/update/{id}/edit(id=${user.id})}"
+      th:object="${user}" method="post">
+    <div class="md-form">
+        <input type="text" th:field="*{firstName}"
+               th:value="${user.firstName}" name="firstName" id="firstName"
+               class="form-control"/> <label class="active" for="firstName">First Name</label>
+    </div>
+    <div class="md-form">
+        <input type="text" th:field="*{secondName}"
+               th:value="${user.secondName}" name="secondName" id="secondName"
+               class="form-control"/> <label class="active" for="secondName">Surname</label>
+    </div>
+    <div class="md-form">
+        <input type="text" th:field="*{dateOfBirth}" th:value="${user.dateOfBirth}"
+               name="dateOfBirth" id="dateOfBirth" class="form-control"/> <label
+            class="active" for="dateOfBirth">Date Of Birth</label>
+    </div>
+    <div class="md-form">
+        <input type="text" th:field="*{phoneNumber}" th:value="${user.phoneNumber}"
+               name="phoneNumber" id="phoneNumber" class="form-control"/> <label
+            class="active" for="phoneNumber">Phone Number</label>
+    </div>
+    <div class="md-form">
+        <input type="text" th:field="*{school}" th:value="${user.school}"
+               name="school" id="school" class="form-control"/> <label
+            class="active" for="school">School</label>
+    </div>
+    <div class="md-form">
+        <input type="text" th:field="*{email}" th:value="${user.email}"
+               name="email" id="email" class="form-control"/> <label
+            class="active" for="email">Email</label>
+    </div>
+    <div class="md-form">
+        <input type="text" th:field="*{password}"
+               th:value="${user.password}" name="password" id="password"
+               class="form-control"/> <label class="active" for="password">Password</label>
+    </div>
+    <div>
+        <input class="btn btn-sm btn-primary waves-effect btn-rounded"
+               type="submit" value="Update User"/>
+    </div>
+</form>
+
+</body>
+</html>
