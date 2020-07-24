@@ -23,7 +23,7 @@ import java.io.InputStream;
 @Service
 public class DropBoxService {
 
-    private static final String ACCESS_TOKEN = "-EG7OJoOdMAAAAAAAAAADBebpJsRpuSreSFaLo7M4b7yQHxRoSKCDuPatoFOpZ0z";
+    private static final String ACCESS_TOKEN = "-EG7OJoOdMAAAAAAAAAANUDUZ9TpTHofRNqXZ-pDT1qxKjibJlNhebxWKsVHu9vS";
     private final DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
     private final DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
     private final UserRepository userRepository;
