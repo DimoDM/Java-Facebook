@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css?family=Epilogue');
 
 
 body,
@@ -88,30 +88,49 @@ body {
 }
 
 
-.user {
+.demoUser {
+  display: block;
+  float: left;
+  width: 9%;
+  border-radius: 100%;
+
+  margin-top: auto;
+  margin-bottom: auto;
 
   display: block;
-  width: 35%;
-  margin-left: auto;
-  margin-right: auto;
-  margin top: 8%;
-  margin-bottom: 4%; 
-
-  border-radius: 50%;
-  box-shadow: 0 3px 10px 3px #ffffff;
-
+  position: absolute;
 }
 
 .form {
   border-radius: 15px;
 
   background-color: #ffffff;
-  width: 530px;
-  height: 625px;
+  width: 900px;
+  height: 600px;
   margin: 4.40% auto 2% auto;
   padding: 30px;
   overflow: hidden;
   text-align: center;
+}
+
+.friendRequests {
+
+  border-radius: 15px;
+
+  background-color: #cee0e0;
+  width: 90%;
+  height: 100px;
+
+  position: relative;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+
+  padding: 20px;
+  overflow: hidden;
+  text-align: center;
+
 }
 
 input {
@@ -125,6 +144,13 @@ input {
   font-size: 14px;
   font-family: inherit;
  
+}
+
+.Requests {
+
+ font-family: Epilogue;
+ color: #431f5c;
+
 }
 
 .btn {
@@ -167,11 +193,27 @@ input {
 
 
 .btn--blue {
-  background: #4a999b
+  background: #4a999b;
 }
 
 .btn--blue:hover {
-  background: #5d3183
+  background: #5d3183;
+}
+
+.btn--red {
+  background: #4a999b;
+}
+
+.btn--red:hover {
+  background: #ff5454;
+}
+
+.btn--green {
+  background: #4a999b;
+}
+
+.btn--green:hover {
+  background: #7aff73;
 }
 
 
@@ -289,6 +331,19 @@ border-radius: 20px;
 .input--style-4:-ms-input-placeholder {
  
   color: #666;
+}
+
+.username {
+  font-size: 20px;
+  color: #555;
+  text-transform: capitalize;
+  display: block;
+
+  margin-bottom: auto;
+  margin-top: 3.5%;
+
+  float: left;
+  margin-left: 12%
 }
 
 .label {
