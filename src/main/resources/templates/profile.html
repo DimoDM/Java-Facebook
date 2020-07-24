@@ -23,7 +23,10 @@
                 <span th:text="${authUser.getFirstName()}"></span>
             </a>
             <a th:href="@{/home}">Home</a>
-            <button class="fa fa-user"></button>
+            <form method="get" action="/friends">
+                <input type="text" name="userId" th:value="${authUser.getId()}" style="display: none">
+            <button type="submit" class="fa fa-user"></button>
+            </form>
             <button class="fa fa-envelope"></button>
             <button class="fa fa-bell"></button>
             <button onclick="show_hide_more()" class="fa fa-bars more-button" id></button>
