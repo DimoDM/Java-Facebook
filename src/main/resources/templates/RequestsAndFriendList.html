@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <link th:href="@{css/RequestAndFriendsList.css}" rel="stylesheet"/>
+    <link th:href="@{css/RequestsAndFriendList.css}" rel="stylesheet"/>
 
 </head>
 <body>
@@ -12,10 +12,11 @@
 <div class="form" style="overflow-y: scroll;">
  <h1 class="Requests"><center>Friend Requests</center></h1>
   
- <div class="friendRequests">
+ <ul class="friendRequests" th:each="request: ${authUserFriendRequests}">
+     <li>
    <img src="demoUser.jpg" class="demoUser">
 
-   <h2 class="username">user1236564</h2>
+   <h2 class="username" th:text="${request.getRequester().getFirstName()} + ' ' + ${request.getRequester().getSecondName()}"></h2>
 
    <div class="p-t-15">
      <button class="btn btn--radius-2 btn--red" type="submit" style="width: 23%; float: right;">Decline</button>
@@ -24,8 +25,8 @@
    <div class="p-t-15">
      <button class="btn btn--radius-2 btn--green" type="submit" style="width: 23%; float: right; margin-right: 2%;">Accept</button>
   </div>    
-
- </div>
+     </li>
+ </ul>
 
  <div class="friendRequests">
    <img src="demoUser.jpg" class="demoUser">
@@ -45,52 +46,7 @@
  <div class="friendRequests">
    <img src="demoUser.jpg" class="demoUser">
 
-   <h2 class="username">user123aaaaaaa</h2>
-
-   <div class="p-t-15">
-     <button class="btn btn--radius-2 btn--red" type="submit" style="width: 23%; float: right;">Decline</button>
-  </div> 
-
-   <div class="p-t-15">
-     <button class="btn btn--radius-2 btn--green" type="submit" style="width: 23%; float: right; margin-right: 2%;">Accept</button>
-  </div>    
-
- </div>
-
- <div class="friendRequests">
-   <img src="demoUser.jpg" class="demoUser">
-
-   <h2 class="username">user123</h2>
-
-   <div class="p-t-15">
-     <button class="btn btn--radius-2 btn--red" type="submit" style="width: 23%; float: right;">Decline</button>
-  </div> 
-
-   <div class="p-t-15">
-     <button class="btn btn--radius-2 btn--green" type="submit" style="width: 23%; float: right; margin-right: 2%;">Accept</button>
-  </div>    
-
- </div>
-
- <div class="friendRequests">
-   <img src="demoUser.jpg" class="demoUser">
-
-   <h2 class="username">user1231231231231223user</h2>
-
-   <div class="p-t-15">
-     <button class="btn btn--radius-2 btn--red" type="submit" style="width: 23%; float: right;">Decline</button>
-  </div> 
-
-   <div class="p-t-15">
-     <button class="btn btn--radius-2 btn--green" type="submit" style="width: 23%; float: right; margin-right: 2%;">Accept</button>
-  </div>    
-
- </div>
-
-<div class="friendRequests">
-   <img src="demoUser.jpg" class="demoUser">
-
-   <h2 class="username">user123</h2>
+   <h2 class="username" >user123aaaaaaa</h2>
 
    <div class="p-t-15">
      <button class="btn btn--radius-2 btn--red" type="submit" style="width: 23%; float: right;">Decline</button>
