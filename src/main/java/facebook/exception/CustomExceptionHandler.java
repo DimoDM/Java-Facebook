@@ -46,6 +46,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return send(ex.getLocalizedMessage());
     }
 
+    @ExceptionHandler(value = {UserNotFoundException.class})
+    public ModelAndView handleUserNotFoundException(UserNotFoundException ex) {
+        log.error(ex.getLocalizedMessage(), ex);
+        return send(ex.getLocalizedMessage());
+    }
+
     private ModelAndView send(String msg){
         ModelAndView modelAndView = new ModelAndView("error\\errors.html");
         modelAndView.addObject("errorMsg", msg);
