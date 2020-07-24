@@ -7,13 +7,8 @@ import facebook.entity.Post;
 import facebook.entity.User;
 import facebook.exception.DateNotValidException;
 import facebook.exception.UserByIdNotFoundException;
-import facebook.exception.WrongPasswordException;
-import facebook.repository.FriendRequestRepository;
-import facebook.repository.PostRepository;
-import facebook.repository.UserLoginDataRepository;
-import facebook.repository.UserRepository;
+import facebook.repository.*;
 import facebook.service.contract.FacebookProfileService;
-import org.joda.time.TimeOfDay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,19 +24,18 @@ public class FacebookProfileServiceImpl implements FacebookProfileService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final FriendRequestRepository friendRequestRepository;
-    private final UserLoginDataRepository uLogDataRepo;
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public FacebookProfileServiceImpl(UserRepository userRepository,
                                       PostRepository postRepository,
                                       FriendRequestRepository friendRequestRepository,
-                                      UserLoginDataRepository uLogDataRepo,
-                                      BCryptPasswordEncoder bCryptPasswordEncoder) {
+                                      PasswordResetTokenRepository passwordResetTokenRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.friendRequestRepository = friendRequestRepository;
-        this.uLogDataRepo = uLogDataRepo;
+        this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -64,9 +58,7 @@ public class FacebookProfileServiceImpl implements FacebookProfileService {
     }
 
     @Override
-    public void changeUserInfo(User user, ChangeInfoDTO changeInfoDTO) throws WrongPasswordException, DateNotValidException {
-        if (uLogDataRepo.existsByPassword(bCryptPasswordEncoder.encode(changeInfoDTO.getPasswordAuth())))
-            throw new WrongPasswordException("Wrong password! Changes cannot be applied!");
+    public void changeUserInfo(User user, ChangeInfoDTO changeInfoDTO) throws  DateNotValidException {
         if (isElementValid(changeInfoDTO.getFirstName()))
             user.setFirstName(changeInfoDTO.getFirstName());
         if (isElementValid(changeInfoDTO.getSecondName()))
@@ -79,7 +71,7 @@ public class FacebookProfileServiceImpl implements FacebookProfileService {
             user.setCity(changeInfoDTO.getCity());
         if (isElementValid(changeInfoDTO.getSchool()))
             user.setSchool(changeInfoDTO.getSchool());
-        if (isElementValid(changeInfoDTO.getBirthday().toString()))
+        if (changeInfoDTO.getBirthday() != null)
             if (!isDateValid(changeInfoDTO.getBirthday()))
                 throw new DateNotValidException("You must be at least 14 year old!");
             user.setDateOfBirth(changeInfoDTO.getBirthday().toString());
@@ -87,6 +79,8 @@ public class FacebookProfileServiceImpl implements FacebookProfileService {
         userRepository.save(user);
 
     }
+
+
 
     private boolean isElementValid(String element){
         return element != null && !element.isEmpty();

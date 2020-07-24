@@ -10,7 +10,6 @@ public class ChangeInfoDTO {
     private String telNum;
     private String school;
     private String job;
-    private String passwordAuth;
     private Date birthday;
 
     public ChangeInfoDTO() {
@@ -62,14 +61,6 @@ public class ChangeInfoDTO {
 
     public void setJob(String job) {
         this.job = job;
-    }
-
-    public String getPasswordAuth() {
-        return passwordAuth;
-    }
-
-    public void setPasswordAuth(String passwordAuth) {
-        this.passwordAuth = passwordAuth;
     }
 
     public Date getBirthday() {

@@ -4,9 +4,9 @@ import facebook.dto.ChangeInfoDTO;
 import facebook.entity.FriendRequest;
 import facebook.entity.Post;
 import facebook.entity.User;
+import facebook.exception.DateNotValidException;
 import facebook.exception.UserByEmailNotFoundException;
 import facebook.exception.UserByIdNotFoundException;
-import facebook.exception.WrongPasswordException;
 import facebook.repository.FriendRequestRepository;
 import facebook.service.contract.FacebookProfileService;
 import facebook.service.contract.UserService;
@@ -58,15 +58,17 @@ public class FacebookProfileController extends BaseController{
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/changeInfo")
-    public ModelAndView changeProfileInfo(){
-        return send("changeInfo");
+    public ModelAndView changeProfileInfo(Principal principal, ModelAndView mav){
+        User authUser = userService.getAuthUser(principal.getName());
+        return send("changeInfo", "authUser", authUser);
 
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/changeInfo")
-    public ModelAndView changeProfileInfo(@ModelAttribute ChangeInfoDTO changeInfoDTO, Principal principal) throws WrongPasswordException {
-        facebookProfileService.changeUserInfo(userService.getAuthUser(principal.getName()),changeInfoDTO);
-        return redirect("/");
+    public ModelAndView changeProfileInfo(@ModelAttribute ChangeInfoDTO changeInfoDTO, Principal principal) throws  DateNotValidException {
+        User authUser = userService.getAuthUser(principal.getName());
+        facebookProfileService.changeUserInfo(authUser,changeInfoDTO);
+        return redirect("/"+authUser.getId());
     }
 }

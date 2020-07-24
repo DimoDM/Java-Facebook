@@ -6,9 +6,6 @@ import facebook.entity.Post;
 import facebook.entity.User;
 import facebook.exception.DateNotValidException;
 import facebook.exception.UserByIdNotFoundException;
-import facebook.exception.WrongPasswordException;
-import facebook.repository.FriendRequestRepository;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -22,7 +19,7 @@ public interface FacebookProfileService {
 
     FriendRequest getFriendRequestWithId(Long requesterId) throws UserByIdNotFoundException;
 
-    void changeUserInfo(User user, ChangeInfoDTO changeInfoDTO) throws WrongPasswordException, DateNotValidException;
+    void changeUserInfo(User user, ChangeInfoDTO changeInfoDTO) throws  DateNotValidException;
 
 
 }
