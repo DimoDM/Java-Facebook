@@ -13,7 +13,7 @@ public interface UserService extends UserDetailsService {
 
     void register(RegisterDTO registerDTO);
 
-    User getAuthUser(String username) throws UserByEmailNotFoundException;
+    User getAuthUser(String username);
 
     UserDetails loadUserByUsername(String email);
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{css/user-menu-style.css}">
+    <link rel="stylesheet" th:href="@{css/errorPage.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="menu">
+    <form action="/searchUsers" method="post">
+        <input type="text" name="name" class="search-bar" placeholder="Search">
+        <button type="submit" class="fa fa-search search-button"></button>
+    </form>
+    <div class="user-buttons">
+        <a th:href="@{${authUser.getId()}}">
+            <img th:if="${authUser.getProfilePicture()!=null}"
+                 th:src="${authUser.getProfilePicture().getImageURL()}"
+                 alt="User Profile Picture" class="user-bar-photo">
+            <img th:if="${authUser.getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
+                 class="user-bar-photo">
+            <span th:text="${authUser.getFirstName()}"></span>
+        </a>
+        <a th:href="@{/home}">Home</a>
+        <button class="fa fa-user"></button>
+        <button class="fa fa-envelope"></button>
+        <button class="fa fa-bell"></button>
+        <button class="fa fa-bars more-button" id></button>
+        <a th:href="@{/logout}">Logout</a>
+        <div id="more-button-drop-down" style="display: none">
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</div>¶
+
+<div class="error-box">
+    <h1 th:text="${errorMsg}"></h1>
+</div>
+
+</body>
+</html>
