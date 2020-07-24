@@ -43,7 +43,7 @@ public class ProfileServiceImpl implements ProfileService {
     public FriendRequest getFriendRequestWithId(Long id) throws UserByIdNotFoundException {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserByIdNotFoundException("User not found"));
-        return friendRequestRepository.findFriendRequestByRequesterOrReceiver(user, user);
+        return friendRequestRepository.findFirstByReceiver(user);
     }
 
 }

@@ -47,9 +47,9 @@ public class FriendRequestController extends BaseController {
         Set<Post> userPosts = profileService.getUserPosts(userProfile);
         Set<User> userFriends = userProfile.getUserFriends();
         FriendRequest profileFriendRequest = profileService.getFriendRequestWithId(userIdDTO.getUserId());
-        Set<FriendRequest> friendRequests = fReqRepo.findAllByRequesterOrReceiver(authUser, authUser);
+        Set<FriendRequest> friendRequests = fReqRepo.findAllByReceiverOrRequester(authUser, authUser);
         modelAndView.setViewName("RequestsAndFriendList.html");
-        modelAndView.addObject("authUser", authUser);
+        modelAndView.addObject("AuthUser", authUser);
         modelAndView.addObject("user", userProfile);
         modelAndView.addObject("authUserFriendRequests", friendRequests);
         modelAndView.addObject("friendRequest", profileFriendRequest);
@@ -62,35 +62,35 @@ public class FriendRequestController extends BaseController {
     @PostMapping("/acceptRequest")
     public ModelAndView acceptFriendRequest(@ModelAttribute UserIdDTO userIdDTO, Principal principal) throws FriendRequestNotFoundException, UserByIdNotFoundException, UserByEmailNotFoundException {
         friendRequestService.acceptFriendRequest(userIdDTO.getUserId(),userService.getAuthUser(principal.getName()));
-        return redirect("/" +userIdDTO.getUserId());
+        return send("RequestsAndFriendList");
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/denyRequest")
     public ModelAndView declineFriendRequest(@ModelAttribute UserIdDTO userIdDTO, Principal principal) throws UserByIdNotFoundException, UserByEmailNotFoundException {
         friendRequestService.declineFriendRequest(userIdDTO.getUserId(),userService.getAuthUser(principal.getName()));
-        return redirect("/"+userIdDTO);
+        return send("RequestsAndFriendList");
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/cancelRequest")
     public ModelAndView cancelRequest(@ModelAttribute UserIdDTO userIdDTO, Principal principal) throws UserByIdNotFoundException, UserByEmailNotFoundException {
         friendRequestService.cancelFriendRequest(userService.getAuthUser(principal.getName()),userIdDTO.getUserId());
-        return redirect("/" + userIdDTO.getUserId());
+        return send("RequestsAndFriendList");
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/sendFriendRequest")
     public ModelAndView sendFriendRequest(@ModelAttribute UserIdDTO userIdDTO, Principal principal) throws UserByIdNotFoundException, UserByEmailNotFoundException {
         friendRequestService.sendFriendRequest(userService.getAuthUser(principal.getName()),userIdDTO.getUserId());
-        return redirect("/"+userIdDTO.getUserId());
+        return send("RequestsAndFriendList");
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/removeFriend")
     public ModelAndView removeFriend(@ModelAttribute UserIdDTO userIdDTO, Principal principal) throws UserByIdNotFoundException, UserByEmailNotFoundException {
         friendRequestService.removeFriend(userService.getAuthUser(principal.getName()),userIdDTO.getUserId());
-        return redirect("/"+userIdDTO.getUserId());
+        return send("RequestsAndFriendList");
     }
 
 
