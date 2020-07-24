@@ -6,7 +6,7 @@
     <link th:href="@{css/searchUser-style.css}" rel="stylesheet"/>
 </head>
 <body>
-    <h1 th:if="${fullMatchUsers!=null}">Full match</h1>
+    <h1 th:if="${fullMatchUsers!=null && !fullMatchUsers.isEmpty()}">Full match</h1>
     <ul th:if="${fullMatchUsers!=null}" th:each="user: ${fullMatchUsers}">
         <li>
             <img th:if="${user.getProfilePicture().getImageURL()!=null}"
