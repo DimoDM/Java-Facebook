@@ -1,5 +1,6 @@
 package facebook.controller;
 
+import com.dropbox.core.DbxException;
 import facebook.dto.PostDTO;
 import facebook.exception.BlankPostException;
 import facebook.exception.UserByEmailNotFoundException;
@@ -25,7 +26,7 @@ public class PostController extends BaseController{
     }
 
     @PostMapping("/createPost")
-    public ModelAndView createPost(@ModelAttribute PostDTO postDTO, Principal principal) throws BlankPostException, UserByEmailNotFoundException, IOException {
+    public ModelAndView createPost(@ModelAttribute PostDTO postDTO, Principal principal) throws BlankPostException, UserByEmailNotFoundException, IOException, DbxException {
         postService.createPost(postDTO, userService.getAuthUser(principal.getName()));
         return redirect("/");
     }
