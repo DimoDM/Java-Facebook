@@ -33,7 +33,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout().logoutSuccessUrl("/login").permitAll()
                 .and()
-                    .exceptionHandling().accessDeniedPage("/unauthorized")
+                    .exceptionHandling().accessDeniedPage("/error/unauthorized")
                 .and()
                     .csrf().disable()
                     .rememberMe()

@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         if (userLoginDataRepository.existsByEmail(email)) {
-            UserLoginData user = userLoginDataRepository.findFirstByEmail(email).get();
+            UserLoginData user = userLoginDataRepository.findFirstByEmail(email);
             return user;
         } else {
             throw new UsernameNotFoundException("User not found with email: " + email);
@@ -116,9 +116,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getAuthUser(String email) throws UserByEmailNotFoundException {
-        UserLoginData userLoginData = userLoginDataRepository.findFirstByEmail(email)
-                .orElseThrow(() -> new UserByEmailNotFoundException("User not found"));
+    public User getAuthUser(String email) {
+        UserLoginData userLoginData = userLoginDataRepository.findFirstByEmail(email);
         return userLoginData.getUser();
     }
 

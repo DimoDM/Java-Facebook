@@ -58,7 +58,7 @@ public class ResetPasswordService {
     private void saveToken(String email, String token) {
 
         if (userLoginDataRepository.existsByEmail(email)) {
-            UserLoginData userLoginData = userLoginDataRepository.findFirstByEmail(email).get();
+            UserLoginData userLoginData = userLoginDataRepository.findFirstByEmail(email);
             if (passwordResetTokenRepository.existsByUserLoginData(userLoginData)) {
                 replaceToken(token, userLoginData);
             } else {
@@ -71,15 +71,15 @@ public class ResetPasswordService {
     public void saveNewPasswordInDatabase(ResetPasswordDTO resetPasswordDTO, String email) {
         System.out.println(resetPasswordDTO.getPassword() + "  " + email);
         checkIfPasswordsAreSame(resetPasswordDTO);
-        UserLoginData user = userLoginDataRepository.findFirstByEmail(email).get();
+        UserLoginData user = userLoginDataRepository.findFirstByEmail(email);
         user.setPassword(passwordEncoder.encode(resetPasswordDTO.getPassword()));
         userLoginDataRepository.save(user);
     }
 
     public boolean checkIfLinkIsValid(String token, String email) {
         if (userLoginDataRepository.existsByEmail(email)) {
-            if (passwordResetTokenRepository.existsByUserLoginData(userLoginDataRepository.findFirstByEmail(email).get())) {
-                if (passwordResetTokenRepository.findFirstByUserLoginData(userLoginDataRepository.findFirstByEmail(email).get()).getToken().equals(token)) {
+            if (passwordResetTokenRepository.existsByUserLoginData(userLoginDataRepository.findFirstByEmail(email))) {
+                if (passwordResetTokenRepository.findFirstByUserLoginData(userLoginDataRepository.findFirstByEmail(email)).getToken().equals(token)) {
                     return true;
                 }
             }
