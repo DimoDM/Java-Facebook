@@ -4,6 +4,7 @@ import facebook.dto.ChangeInfoDTO;
 import facebook.entity.FriendRequest;
 import facebook.entity.Post;
 import facebook.entity.User;
+import facebook.exception.DateNotValidException;
 import facebook.exception.UserByIdNotFoundException;
 import facebook.exception.WrongPasswordException;
 import facebook.repository.FriendRequestRepository;
@@ -21,7 +22,7 @@ public interface FacebookProfileService {
 
     FriendRequest getFriendRequestWithId(Long requesterId) throws UserByIdNotFoundException;
 
-    void changeUserInfo(User user, ChangeInfoDTO changeInfoDTO) throws WrongPasswordException;
+    void changeUserInfo(User user, ChangeInfoDTO changeInfoDTO) throws WrongPasswordException, DateNotValidException;
 
 
 }

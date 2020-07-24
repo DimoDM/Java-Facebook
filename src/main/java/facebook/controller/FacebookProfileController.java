@@ -1,10 +1,12 @@
 package facebook.controller;
 
+import facebook.dto.ChangeInfoDTO;
 import facebook.entity.FriendRequest;
 import facebook.entity.Post;
 import facebook.entity.User;
 import facebook.exception.UserByEmailNotFoundException;
 import facebook.exception.UserByIdNotFoundException;
+import facebook.exception.WrongPasswordException;
 import facebook.repository.FriendRequestRepository;
 import facebook.service.contract.FacebookProfileService;
 import facebook.service.contract.UserService;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,10 +57,16 @@ public class FacebookProfileController extends BaseController{
     }
 
     @PreAuthorize("isAuthenticated()")
+    @GetMapping("/changeInfo")
+    public ModelAndView changeProfileInfo(){
+        return send("changeInfo");
+
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/changeInfo")
-    public ModelAndView changeProfileInfo(Principal principal){
-        User authUser = userService.getAuthUser(principal.getName());
-
-
+    public ModelAndView changeProfileInfo(@ModelAttribute ChangeInfoDTO changeInfoDTO, Principal principal) throws WrongPasswordException {
+        facebookProfileService.changeUserInfo(userService.getAuthUser(principal.getName()),changeInfoDTO);
+        return redirect("/");
     }
 }

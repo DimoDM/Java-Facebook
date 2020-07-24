@@ -1,5 +1,8 @@
 package facebook.dto;
 
+
+import java.sql.Date;
+
 public class ChangeInfoDTO {
     private String firstName;
     private String secondName;
@@ -8,6 +11,7 @@ public class ChangeInfoDTO {
     private String school;
     private String job;
     private String passwordAuth;
+    private Date birthday;
 
     public ChangeInfoDTO() {
     }
@@ -66,5 +70,13 @@ public class ChangeInfoDTO {
 
     public void setPasswordAuth(String passwordAuth) {
         this.passwordAuth = passwordAuth;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 }
