@@ -64,6 +64,9 @@
                         <button type="submit">Remove Friend</button>
                     </form>
                 </th:block>
+                <form action="/changeInfo" method="get">
+                    <button th:if="${user.equals(authUser)}" type="submit" class="change-info-btn">Change Info</button>
+                </form>
             </div>
             <img th:if="${user.getProfilePicture() !=null}" th:src="${user.getProfilePicture().getImageURL()}"
                  alt="profile pic" class="profile-pic">
