@@ -34,7 +34,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void createPost(PostDTO postDTO, User authUser) throws BlankPostException, IOException, DbxException {
-        if (postDTO.getPostImage() == null && postDTO.getPostText() == null)
+        if (postDTO.getPostImage() == null && postDTO.getPostText() == null || postDTO.getPostText().isEmpty())
             throw new BlankPostException("The post does not contain any text or image");
 
         Post newPost = new Post();

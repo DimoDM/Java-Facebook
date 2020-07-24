@@ -24,6 +24,15 @@ public class Comment {
     @Column(name = "date")
     private String date;
 
+    @OneToOne
+    Picture commentPicture;
+
+    @Column(name = "text")
+    private String text;
+
+    @OneToOne
+    private Picture picture;
+
     public Set<Like> getLikes() {
         return likes;
     }
@@ -65,5 +74,21 @@ public class Comment {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 }
