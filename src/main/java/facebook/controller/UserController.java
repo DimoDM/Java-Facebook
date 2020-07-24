@@ -22,9 +22,6 @@ public class UserController extends BaseController {
 
     private final UserServiceImpl userService;
 
-    @GetMapping("/testChangePassword")
-    public ModelAndView testChangePassword(){return send("changePassword");}
-
     @Autowired
     public UserController(UserServiceImpl userService) {
         this.userService = userService;
