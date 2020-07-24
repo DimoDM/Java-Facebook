@@ -1,5 +1,6 @@
 package facebook.controller;
 
+import com.dropbox.core.DbxException;
 import facebook.dto.CommentDTO;
 import facebook.exception.UserByEmailNotFoundException;
 import facebook.service.contract.CommentService;
@@ -29,7 +30,7 @@ public class CommentController extends BaseController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/createComment")
-    public ModelAndView createComment(@ModelAttribute CommentDTO commentDTO, Principal principal) throws UserByEmailNotFoundException, IOException {
+    public ModelAndView createComment(@ModelAttribute CommentDTO commentDTO, Principal principal) throws UserByEmailNotFoundException, IOException, DbxException {
         commentService.createComment(commentDTO, userService.getAuthUser(principal.getName()));
         return redirect("/");
     }

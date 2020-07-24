@@ -1,5 +1,6 @@
 package facebook.service.implementation;
 
+import com.dropbox.core.DbxException;
 import constants.Constants;
 import facebook.dto.CommentDTO;
 import facebook.entity.Comment;
@@ -33,15 +34,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void createComment(CommentDTO commentDTO, User authUser) throws IOException {
+    public void createComment(CommentDTO commentDTO, User authUser) throws IOException, DbxException {
         Comment comment = new Comment();
         Post post = postRepository.findFirstById(commentDTO.getPostID());
-        Picture picture = new Picture();
         if(commentDTO.getCommentPhoto() != null && !commentDTO.getCommentPhoto().isEmpty()) {
-            Path path = imageUploadService.uploadImageAndGetPath(commentDTO.getCommentPhoto());
-            String filePathFromFolder = path.toString().replace(Constants.PATH_REFORMER, "");
-            picture.setImageURL(filePathFromFolder);
-            pictureRepository.save(picture);
+            String url = imageUploadService.uploadImageAndGetURL(commentDTO.getCommentPhoto());
+            Picture picture = pictureRepository.getFirstByImageURL(url);
             comment.setPicture(picture);
         }
 
