@@ -7,7 +7,9 @@ import facebook.exception.UserByIdNotFoundException;
 import facebook.repository.FriendRequestRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.Set;
 
 @Service
@@ -18,4 +20,6 @@ public interface ProfileService{
     Set<Post> getUserPosts(User user);
 
     FriendRequest getFriendRequestWithId(Long requesterId) throws UserByIdNotFoundException;
+
+    public ModelAndView returnModelAndViewForProfile(Long id, Principal principal, ModelAndView modelAndView) throws UserByIdNotFoundException;
 }

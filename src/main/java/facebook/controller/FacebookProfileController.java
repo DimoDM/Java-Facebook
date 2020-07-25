@@ -36,19 +36,6 @@ public class FacebookProfileController extends BaseController{
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public ModelAndView profile(@PathVariable("id") Long id, ModelAndView modelAndView, Principal principal) throws UserByEmailNotFoundException, UserByIdNotFoundException {
-        User userProfile = profileService.getProfile(id);
-        User authUser = userService.getAuthUser(principal.getName());
-        Set<Post> userPosts = profileService.getUserPosts(userProfile);
-        Set<User> userFriends = userProfile.getUserFriends();
-        FriendRequest profileFriendRequest = profileService.getFriendRequestWithId(id);
-        Set<FriendRequest> friendRequests = fReqRepo.findAllByRequesterOrReceiver(authUser, authUser);
-        modelAndView.setViewName("profile.html");
-        modelAndView.addObject("authUser", authUser);
-        modelAndView.addObject("user", userProfile);
-        modelAndView.addObject("authUserFriendRequests", friendRequests);
-        modelAndView.addObject("friendRequest", profileFriendRequest);
-        modelAndView.addObject("friends", userFriends);
-        modelAndView.addObject("posts", userPosts);
-        return modelAndView;
+        return profileService.returnModelAndViewForProfile(id, principal, modelAndView);
     }
 }

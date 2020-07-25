@@ -35,13 +35,7 @@ public class SearchUsersController extends BaseController {
     @PostMapping("/searchUsers")
     public ModelAndView searchUsers(@ModelAttribute UserSearchDTO userSearchDTO, ModelAndView modelAndView, Principal principal) {
 
-
-
-        User authUser = userService.getAuthUser(principal.getName());
-        modelAndView.addObject("authUser", authUser);
-        modelAndView.addObject("rep", userFriendsRepository);
-        modelAndView.addObject("repo", friendRequestRepository);
-        modelAndView.setViewName("searchTest.html");
+        modelAndView = userSearchService.setGeneralModelAndViewForSearchingUsers(principal, modelAndView);
 
         if (userSearchDTO.getName().contains(" ")) {
             return userSearchService.setModelAndViewForTwoNames(modelAndView, userSearchDTO);

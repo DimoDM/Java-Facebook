@@ -2,21 +2,30 @@ package facebook.service.implementation;
 
 import facebook.dto.UserSearchDTO;
 import facebook.entity.User;
+import facebook.repository.FriendRequestRepository;
+import facebook.repository.UserFriendsRepository;
 import facebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
 public class UserSearchServiceImpl {
 
     private final UserRepository userRepository;
+    private final UserServiceImpl userService;
+    private final UserFriendsRepository userFriendsRepository;
+    private final FriendRequestRepository friendRequestRepository;
 
     @Autowired
-    public UserSearchServiceImpl(UserRepository userRepository) {
+    public UserSearchServiceImpl(UserRepository userRepository, UserServiceImpl userService, UserFriendsRepository userFriendsRepository, FriendRequestRepository friendRequestRepository) {
         this.userRepository = userRepository;
+        this.userService = userService;
+        this.userFriendsRepository = userFriendsRepository;
+        this.friendRequestRepository = friendRequestRepository;
     }
 
     private List<User> findByTwoNames(UserSearchDTO userSearchDTO){
@@ -72,6 +81,18 @@ public class UserSearchServiceImpl {
         modelAndView.addObject("firstNameMatchUsers", usersFoundByFirstName);
         modelAndView.addObject("secondNameMatchUsers", usersFoundBySecondName);
         modelAndView.addObject("matchByAnyOfNames", usersFoundByAnyOfNames);
+
+        return modelAndView;
+    }
+
+
+    public ModelAndView setGeneralModelAndViewForSearchingUsers(Principal principal, ModelAndView modelAndView){
+
+        User authUser = userService.getAuthUser(principal.getName());
+        modelAndView.addObject("authUser", authUser);
+        modelAndView.addObject("rep", userFriendsRepository);
+        modelAndView.addObject("repo", friendRequestRepository);
+        modelAndView.setViewName("searchTest.html");
 
         return modelAndView;
     }
