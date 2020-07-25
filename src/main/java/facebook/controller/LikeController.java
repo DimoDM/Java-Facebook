@@ -29,14 +29,14 @@ public class LikeController extends BaseController {
     @PostMapping("/likePost")
     public ModelAndView likePost(@ModelAttribute LikeDTO likeDTO, Principal principal) throws UserByEmailNotFoundException {
         likeService.likePost(likeDTO,userService.getAuthUser(principal.getName()));
-        return redirect("/");
+        return redirect("/facebook");
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/likeComment")
     public ModelAndView likeComment(@ModelAttribute LikeDTO likeDTO, Principal principal) throws UserByEmailNotFoundException {
         likeService.likeComment(likeDTO,userService.getAuthUser(principal.getName()));
-        return redirect("/");
+        return redirect("/facebook");
     }
 
 }
