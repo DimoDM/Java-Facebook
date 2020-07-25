@@ -1,6 +1,7 @@
 package facebook.controller;
 
 import facebook.dto.PostDTO;
+import facebook.entity.User;
 import facebook.exception.BlankPostException;
 import facebook.exception.UserByEmailNotFoundException;
 import facebook.service.contract.PostService;
@@ -25,9 +26,10 @@ public class PostController extends BaseController{
     }
 
     @PostMapping("/createPost")
-    public ModelAndView createPost(@ModelAttribute PostDTO postDTO, Principal principal) throws BlankPostException, IOException {
-        postService.createPost(postDTO, userService.getAuthUser(principal.getName()));
-        return redirect("/");
+    public ModelAndView createPost(@ModelAttribute PostDTO postDTO, Principal principal) throws BlankPostException, UserByEmailNotFoundException, IOException {
+        User authUser = userService.getAuthUser(principal.getName());
+        postService.createPost(postDTO,authUser);
+        return redirect("/" + authUser.getId());
     }
 
 }
