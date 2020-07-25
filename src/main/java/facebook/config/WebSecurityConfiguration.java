@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import java.security.Principal;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -30,6 +32,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .formLogin().loginPage("/login").permitAll()
                     .usernameParameter("email")
                     .passwordParameter("password")
+                    .defaultSuccessUrl("/1", true)
                 .and()
                     .logout().logoutSuccessUrl("/login").permitAll()
                 .and()

@@ -1,15 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{css/searchUser-style.css}" rel="stylesheet"/>
 </head>
 <body>
-
-<img src="https://www.dl.dropboxusercontent.com/s/1g45ve9rn99ip68/7HxDgR6p2ZRWorX.png?dl=0" style="background: 200px">
+<h1 th:if="${fullMatchUsers!=null}">Full match</h1>
+<ul th:if="${fullMatchUsers!=null}" th:each="user: ${fullMatchUsers}">
+    <li>
+        <img th:if="${user.getProfilePicture().getImageURL()!=null}"
+             th:src="${user.getProfilePicture().getImageURL()}">
+        <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
+        <form action="/sendFriendRequest" method="post">
+            <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
+            <input type="submit" value="Add friend">
+        </form>
+    </li>
+</ul>
+<h1 th:if="${firstNameMatchUsers!=null}">Similar matches</h1>
+<ul th:if="${firstNameMatchUsers!=null}" th:each="user: ${firstNameMatchUsers}">
+    <li>
+        <img th:if="${user.getProfilePicture().getImageURL()!=null}"
+             th:src="${user.getProfilePicture().getImageURL()}">
+        <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
+        <form action="/sendFriendRequest" method="post">
+            <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
+            <input type="submit" value="Add friend">
+        </form>
+    </li>
+</ul>
+<ul th:if="${secondNameMatchUsers!=null}" th:each="user: ${secondNameMatchUsers}">
+    <li>
+        <img th:if="${user.getProfilePicture().getImageURL()!=null}"
+             th:src="${user.getProfilePicture().getImageURL()}">
+        <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
+        <form action="/sendFriendRequest" method="post">
+            <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
+            <input type="submit" value="Add friend">
+        </form>
+    </li>
+</ul>
+<h1 th:if="${matchByAnyOfNames!=null}">Similar matches</h1>
+<ul th:if="${matchByAnyOfNames!=null}" th:each="user: ${matchByAnyOfNames}">
+    <li>
+        <img th:if="${user.getProfilePicture().getImageURL()!=null}"
+             th:src="${user.getProfilePicture().getImageURL()}">
+        <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
+        <form action="/sendFriendRequest" method="post">
+            <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
+            <input type="submit" value="Add friend">
+        </form>
+    </li>
+</ul>
 </body>
 </html>
 
 
-https://www.dropbox.com/s/rdyfluqx3039zfk/theorems-next1.jpg?dl=0
-dl.dropboxusercontent.com
+
+
+

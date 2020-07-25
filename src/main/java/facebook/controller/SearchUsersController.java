@@ -2,7 +2,10 @@ package facebook.controller;
 
 import facebook.dto.UserSearchDTO;
 import facebook.entity.User;
+import facebook.repository.FriendRequestRepository;
+import facebook.repository.UserFriendsRepository;
 import facebook.service.implementation.UserSearchServiceImpl;
+import facebook.service.implementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -10,50 +13,35 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import java.security.Principal;
 
 @Controller
 public class SearchUsersController extends BaseController {
 
     private final UserSearchServiceImpl userSearchService;
+    private final UserServiceImpl userService;
+    private final UserFriendsRepository userFriendsRepository;
+    private final FriendRequestRepository friendRequestRepository;
 
     @Autowired
-    public SearchUsersController(UserSearchServiceImpl userSearchService) {
+    public SearchUsersController(UserSearchServiceImpl userSearchService, UserServiceImpl userService, UserFriendsRepository userFriendsRepository, FriendRequestRepository friendRequestRepository) {
         this.userSearchService = userSearchService;
+        this.userService = userService;
+        this.userFriendsRepository = userFriendsRepository;
+        this.friendRequestRepository = friendRequestRepository;
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/searchUsers")
-    public ModelAndView searchUsers(@ModelAttribute UserSearchDTO userSearchDTO, ModelAndView modelAndView) {
+    public ModelAndView searchUsers(@ModelAttribute UserSearchDTO userSearchDTO, ModelAndView modelAndView, Principal principal) {
 
+        modelAndView = userSearchService.setGeneralModelAndViewForSearchingUsers(principal, modelAndView);
 
         if (userSearchDTO.getName().contains(" ")) {
-            List<User> usersFoundByBothNames = userSearchService.findByTwoNames(userSearchDTO);
-            List<User> usersFoundByFirstName = userSearchService.findByFirstName(userSearchDTO);
-            List<User> usersFoundBySecondName = userSearchService.findBySecondName(userSearchDTO);
-            List<User> usersFoundByAnyOfNames = null;
-
-
-            modelAndView.setViewName("searchTest.html");
-            modelAndView.addObject("fullMatchUsers", usersFoundByBothNames);
-            modelAndView.addObject("firstNameMatchUsers", usersFoundByFirstName);
-            modelAndView.addObject("secondNameMatchUsers", usersFoundBySecondName);
-            modelAndView.addObject("matchByAnyOfNames", usersFoundByAnyOfNames);
+            return userSearchService.setModelAndViewForTwoNames(modelAndView, userSearchDTO);
         } else{
-            List<User> usersFoundByBothNames = null;
-            List<User> usersFoundByFirstName = null;
-            List<User> usersFoundBySecondName = null;
-            List<User> usersFoundByAnyOfNames = userSearchService.findByAnyOfNames(userSearchDTO);
-
-            modelAndView.setViewName("searchTest.html");
-            modelAndView.addObject("fullMatchUsers", usersFoundByBothNames);
-            modelAndView.addObject("firstNameMatchUsers", usersFoundByFirstName);
-            modelAndView.addObject("secondNameMatchUsers", usersFoundBySecondName);
-            modelAndView.addObject("matchByAnyOfNames", usersFoundByAnyOfNames);
+            return userSearchService.setModelAndViewForOneName(modelAndView, userSearchDTO);
         }
-
-
-        return modelAndView;
     }
 
 }

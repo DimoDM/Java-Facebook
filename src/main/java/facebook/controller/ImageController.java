@@ -34,11 +34,6 @@ public class ImageController extends BaseController {
         return send("upload");
     }
 
-//    @GetMapping("/testDB")
-//    public ModelAndView test() throws DbxException, FileNotFoundException {
-//        dropBoxService.upload();
-//        return send("friendRequestTest");
-//    }
 
     @PostMapping("/image/upload")
     public ModelAndView imageUpload(@ModelAttribute ImageUploadDTO imageUploadDTO) throws IOException, DbxException {

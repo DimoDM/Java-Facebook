@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Facebook</title>
     <link th:href="@{css/style.css}" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{css/profile-style.css}">
+    <link rel="stylesheet" th:href="@{css/user-menu-style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div id="header1">
@@ -11,70 +14,58 @@
         <img src="images/logo.png"/>
     </div>
     <div id="profilearea">
-        <a href="profile.html"><img src="images/avatar.png"/></a>
+        <a th:href="@{'/' + ${authUser.getId()}}" ><img src="images/avatar.png"/></a>
     </div>
     <div id="profilearea1">
-        <a href="profile.html">Profile</a>
+        <a th:href="@{'/' + ${authUser.getId()}}">Profile</a>
     </div>
 </div>
 <div id="content">
     <div id="sidebar_left">
     </div>
-    <div id="posts">
-        <div class="post">
-            <div class="post_user_info">
-                <div class="avatar">
-                    <img src="images/avatar.png"/>
-                </div>
-                <div class="post_user_info_text">
-                    <div class="post_user_name">
-                        <a href="profile.html">Petya</a>
-                    </div>
-                    <div class="post_user_friends">
-                        with <a href="friend_profile.html">Friend's name</a> and 15 others
-                    </div>
-                    <div class="post_minutes_ago">
-                        4hr.
-                    </div>
-                </div>
+    <div th:each="post : ${posts}">
+        <div class="profile-posts">
+            <div class="post-user-info">
+                <img th:if="${post.getPoster().getProfilePicture()!=null}"
+                     th:src="${post.getPoster().getProfilePicture().getImageURL()}" alt="Profile picture" class="post-pp">
+                <img th:if="${post.getPoster().getProfilePicture() == null}" src="../images/profile-pic.png" alt=""
+                     class="post-pp">
+                <h3 th:text="${post.getPoster().getFirstName()} + ' ' + ${post.getPoster().getSecondName()}"></h3>
             </div>
-            <div class="post_content">
+            <div class="post-content">
+                <p th:text="${post.getText()}"></p>
+                <img th:if="${post.getPicture() != null}" th:src="${post.getPicture().getImageURL()}"
+                     alt="Image">
             </div>
-            <div class="like_comment_share">
-                <button id="like">Like</button>
-                <button id="comment">Comment</button>
-                <button id="share">Share</button>
+            <div class="like-form" style="display: block">
+                <form action="/likePost" method="post">
+                    <input type="number" name="postId" th:value="${post.getId()}" style="display: none">
+                    <input type="submit" value="Like" class="like-button">
+                </form>
+                <p th:text="${post.getLikes().size()} + ' people liked this post'"></p>
             </div>
-            <div class="likes">
-                <a href="another-user.html">Petar</a> and 5 others liked this
+            <div class="create-comment ">
+                <img th:src="${authUser.getProfilePicture().getImageURL()}" alt="">
+                <form action="/createComment" method="post" enctype="multipart/form-data" >
+                    <input type="text" name="text" class="comment-write-text"
+                           placeholder="Say something about this psot">
+                    <input type="number" th:value="${post.getId()}" style="display: none" name="postID">
+                    <input type="file" name="commentPhoto">
+                    <button type="submit">Comment</button>
+                </form>
             </div>
-        </div>
-        <div class="post">
-            <div class="post_user_info">
-                <div class="avatar">
-                    <img src="images/avatar.png"/>
-                </div>
-                <div class="post_user_info_text">
-                    <div class="post_user_name">
-                        <a href="profile.html">Petya</a>
-                    </div>
-                    <div class="post_user_friends">
-                        with <a href="friend_profile.html">Friend's name</a> and 15 others
-                    </div>
-                    <div class="post_minutes_ago">
-                        4hr.
-                    </div>
-                </div>
-            </div>
-            <div class="post_content">
-            </div>
-            <div class="like_comment_share">
-                <button id="like">Like</button>
-                <button id="comment">Comment</button>
-                <button id="share">Share</button>
-            </div>
-            <div class="likes">
-                <a href="another-user.html">Petar</a> and 5 others liked this
+            <div th:each="comment : ${post.getComments()}" class="comments">
+                <img  th:src="${comment.getCommenter().getProfilePicture().getImageURL()}" alt="User picture"
+                      class="commenter-profile-photo">
+                <h3 th:text="${comment.getCommenter().getFirstName()}"></h3>
+                <p th:if="${comment.getText()!=null && !comment.getText().isEmpty()}" class="comment-text"
+                   th:text="${comment.getText()}"></p>
+                <img  th:if="${comment.getPicture() != null}" th:src="${comment.getPicture().getImageURL()} " class="comments-photo" alt="">
+                <form action="/likeComment" method="post">
+                    <input type="number" th:value="${comment.getId()}" name="commentId" style="display: none">
+                    <button type="submit">Like</button>
+                </form>
+                <p th:text="${comment.getLikes().size()} + ' people liked this comment'"></p>
             </div>
         </div>
     </div>
