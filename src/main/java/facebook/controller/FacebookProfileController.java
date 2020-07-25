@@ -1,12 +1,11 @@
 package facebook.controller;
 
 import facebook.dto.ChangeInfoDTO;
+import facebook.dto.ImageUploadDTO;
 import facebook.entity.FriendRequest;
 import facebook.entity.Post;
 import facebook.entity.User;
-import facebook.exception.DateNotValidException;
-import facebook.exception.UserByEmailNotFoundException;
-import facebook.exception.UserByIdNotFoundException;
+import facebook.exception.*;
 import facebook.repository.FriendRequestRepository;
 import facebook.service.contract.FacebookProfileService;
 import facebook.service.contract.UserService;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Set;
 
@@ -69,6 +69,22 @@ public class FacebookProfileController extends BaseController{
     public ModelAndView changeProfileInfo(@ModelAttribute ChangeInfoDTO changeInfoDTO, Principal principal) throws  DateNotValidException {
         User authUser = userService.getAuthUser(principal.getName());
         facebookProfileService.changeUserInfo(authUser,changeInfoDTO);
+        return redirect("/"+authUser.getId());
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/changeProfilePicture")
+    public ModelAndView changeProfilePicture(@ModelAttribute ImageUploadDTO imageUploadDTO, Principal principal) throws  IOException, NoProfilePictureException {
+        User authUser = userService.getAuthUser(principal.getName());
+        facebookProfileService.changeProfilePicture(authUser,imageUploadDTO);
+        return redirect("/"+authUser.getId());
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/changeBackPicture")
+    public ModelAndView changeBackPicture(@ModelAttribute ImageUploadDTO imageUploadDTO, Principal principal) throws NoCoverPhotoException, IOException {
+        User authUser = userService.getAuthUser(principal.getName());
+        facebookProfileService.changeCoverPhoto(authUser,imageUploadDTO);
         return redirect("/"+authUser.getId());
     }
 }

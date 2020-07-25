@@ -65,7 +65,18 @@
         <button type="submit">Apply Changes</button>
     </form>
     <br>
-    <form action="/changeProfilePhoto" method="post" ></form>
+    <form action="/changeProfilePicture" method="post" enctype="multipart/form-data">
+        <label for="profilePhoto">Change Profile Picture
+        <input type="file" name="image" id="profilePhoto">
+        </label>
+        <button type="submit">Change</button>
+    </form>
+    <form action="/changeBackPicture" method="post" enctype="multipart/form-data">
+        <label for="coverPhoto">Change Cover Photo
+        <input type="file" name="image" id="coverPhoto">
+        </label>
+        <button type="submit">Change</button>
+    </form>
 </div>
 </body>
 </html>

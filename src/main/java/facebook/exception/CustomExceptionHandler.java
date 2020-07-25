@@ -34,6 +34,18 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return sendAuth(ex.getMessage(), userService.getAuthUser(principal.getName()));
     }
 
+    @ExceptionHandler(value = {NoCoverPhotoException.class})
+    public ModelAndView handleNoCoverPhotoException(NoCoverPhotoException ex, Principal principal) {
+        log.error(ex.getLocalizedMessage(), ex);
+        return sendAuth(ex.getMessage(), userService.getAuthUser(principal.getName()));
+    }
+
+    @ExceptionHandler(value = {NoProfilePictureException.class})
+    public ModelAndView handleNoProfilePictureException(NoProfilePictureException ex, Principal principal) {
+        log.error(ex.getLocalizedMessage(), ex);
+        return sendAuth(ex.getMessage(), userService.getAuthUser(principal.getName()));
+    }
+
     @ExceptionHandler(value = {FriendRequestNotFoundException.class})
     public ModelAndView handleFriendRequestNotFoundException(FriendRequestNotFoundException ex, Principal principal) {
         log.error(ex.getLocalizedMessage(), ex);

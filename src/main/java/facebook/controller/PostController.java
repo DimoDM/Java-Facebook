@@ -25,7 +25,7 @@ public class PostController extends BaseController{
     }
 
     @PostMapping("/createPost")
-    public ModelAndView createPost(@ModelAttribute PostDTO postDTO, Principal principal) throws BlankPostException, UserByEmailNotFoundException, IOException {
+    public ModelAndView createPost(@ModelAttribute PostDTO postDTO, Principal principal) throws BlankPostException, IOException {
         postService.createPost(postDTO, userService.getAuthUser(principal.getName()));
         return redirect("/");
     }
