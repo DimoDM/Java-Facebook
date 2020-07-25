@@ -54,12 +54,6 @@ public class UserController extends BaseController {
         return send("login");
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/facebook")
-    public ModelAndView test(){
-        return send("facebook");
-    }
-
     @PreAuthorize("!isAuthenticated()")
     @GetMapping("/forgotPassword")
     public ModelAndView forgottenPasswordPage(){
