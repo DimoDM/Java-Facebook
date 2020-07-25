@@ -15,6 +15,8 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequest,Lon
 
     FriendRequest findFirstByReceiver(User user);
 
+    boolean existsByReceiverAndRequester(User user, User requester);
+
     Set<FriendRequest> findAllByReceiverOrRequester(User receiver, User user);
 
     FriendRequest findFriendRequestByRequesterOrReceiver(User requester, User receiver);
