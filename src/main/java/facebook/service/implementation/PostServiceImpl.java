@@ -1,5 +1,6 @@
 package facebook.service.implementation;
 
+import com.dropbox.core.DbxException;
 import constants.Constants;
 import facebook.dto.PostDTO;
 import facebook.entity.Picture;
@@ -32,19 +33,16 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void createPost(PostDTO postDTO, User authUser) throws BlankPostException, IOException {
-        if (postDTO.getPostImage() == null && (postDTO.getPostText() == null || postDTO.getPostText().isEmpty()))
+    public void createPost(PostDTO postDTO, User authUser) throws BlankPostException, IOException, DbxException {
+        if (postDTO.getPostImage() == null && postDTO.getPostText() == null || postDTO.getPostText().isEmpty())
             throw new BlankPostException("The post does not contain any text or image");
 
         Post newPost = new Post();
-        Picture picture = new Picture();
         if(postDTO.getPostImage() != null && !postDTO.getPostImage().isEmpty()){
-            Path path = imageUploadService.uploadImageAndGetPath(postDTO.getPostImage());
-            String filePathFromFolder = path.toString().replace(Constants.PATH_REFORMER,"");
-            picture.setImageURL(filePathFromFolder);
-            picture.setPictureHolder(authUser);
-            pictureRepository.save(picture);
+            String url = imageUploadService.uploadImageAndGetURL(postDTO.getPostImage());
+            Picture picture = pictureRepository.getFirstByImageURL(url);
             newPost.setPicture(picture);
+            picture.setPictureHolder(authUser);
         }
         if(postDTO.getPostText() != null && !postDTO.getPostText().isEmpty())
             newPost.setText(postDTO.getPostText());

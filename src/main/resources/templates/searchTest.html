@@ -2,57 +2,67 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title></title>
     <link th:href="@{css/searchUser-style.css}" rel="stylesheet"/>
 </head>
 <body>
-    <h1 th:if="${fullMatchUsers!=null}">Full match</h1>
+
+
+<div class="form" style="overflow-y: scroll;">
+
+    <h1 class="topText" th:if="${fullMatchUsers!=null}">Full match</h1>
+
     <ul th:if="${fullMatchUsers!=null}" th:each="user: ${fullMatchUsers}">
         <li>
-            <img th:if="${user.getProfilePicture().getImageURL()!=null}"
-                 th:src="${user.getProfilePicture().getImageURL()}">
-            <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
-            <form action="/sendFriendRequest" method="post">
-                <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
-                <input type="submit" value="Add friend">
-            </form>
+
+            <div class="matches">
+                <img class="demoUser" style="float: left;" th:if="${user.getProfilePicture().getImageURL()!=null}"
+                     th:src="${user.getProfilePicture().getImageURL()}">
+
+                <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
+
+                <form action="/sendFriendRequest" method="post">
+                    <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
+
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--green" type="submit" value="Add friend" style="width: 30%; float: right;">Add Friend</button>
+                    </div>
+                </form>
+            </div>
         </li>
     </ul>
-    <h1 th:if="${firstNameMatchUsers!=null}">Similar matches</h1>
+</div>
+
+
+
+<div class="form" style="overflow-y: scroll;">
+
+    <h1 class="topText" th:if="${firstNameMatchUsers!=null}">Similar matches</h1>
+
     <ul th:if="${firstNameMatchUsers!=null}" th:each="user: ${firstNameMatchUsers}">
         <li>
-            <img th:if="${user.getProfilePicture().getImageURL()!=null}"
-                 th:src="${user.getProfilePicture().getImageURL()}">
-            <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
-            <form action="/sendFriendRequest" method="post">
-                <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
-                <input type="submit" value="Add friend">
-            </form>
+
+            <div class="matches">
+
+                <img class="demoUser" style="float: left;" th:if="${user.getProfilePicture().getImageURL()!=null}"
+                     th:src="${user.getProfilePicture().getImageURL()}">
+
+                <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
+
+                <form action="/sendFriendRequest" method="post">
+                    <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
+
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--green" type="submit" value="Add friend" style="width: 30%; float: right;">Add Friend</button>
+                    </div>
+                </form>
+            </div>
         </li>
     </ul>
-    <ul th:if="${secondNameMatchUsers!=null}" th:each="user: ${secondNameMatchUsers}">
-        <li>
-            <img th:if="${user.getProfilePicture().getImageURL()!=null}"
-                 th:src="${user.getProfilePicture().getImageURL()}">
-            <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
-            <form action="/sendFriendRequest" method="post">
-                <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
-                <input type="submit" value="Add friend">
-            </form>
-        </li>
-    </ul>
-    <h1 th:if="${matchByAnyOfNames!=null}">Similar matches</h1>
-    <ul th:if="${matchByAnyOfNames!=null}" th:each="user: ${matchByAnyOfNames}">
-        <li>
-            <img th:if="${user.getProfilePicture().getImageURL()!=null}"
-                 th:src="${user.getProfilePicture().getImageURL()}">
-            <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
-            <form action="/sendFriendRequest" method="post">
-                <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
-                <input type="submit" value="Add friend">
-            </form>
-        </li>
-    </ul>
+</div>
+
+
+
 </body>
 </html>
 

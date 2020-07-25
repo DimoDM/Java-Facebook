@@ -1,3 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Epilogue');
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+    font-family: Epilogue;
+}
+
+a {
+    font-family: Epilogue;
+    font-weight: lighter;
+}
+
+p{
+    font-family: Epilogue;
+    font-weight: lighter;
+}
+
+
 .menu form{
     float: left;
     width: 30%;
@@ -16,19 +34,19 @@
 }
 
 .menu{
-    background-color: rgb(35, 93, 255);
+    background-color: #5e2e82;
     width: 100%;
     position: fixed;
     margin: auto;
     top: 0;
     left: 0;
-    height: 40px;
+    height: 45px;
     z-index: 2;
 }
 
 .user-buttons{
     position: absolute;
-    top: 8px;
+    top: 9px;
     right:20%;
 }
 
@@ -37,7 +55,7 @@
 }
 
 .menu button{
-    background-color:  rgb(35, 93, 255);
+    background-color: #5e2d82;
     color: white;
     border: none;
     cursor: pointer;
@@ -45,7 +63,7 @@
 
 
 .user-buttons button:hover{
-    color: rgb(13, 69, 153);
+    color: #8ac0de;
 }
 
 .menu .search-button{
@@ -64,7 +82,7 @@
 }
 
 .user-buttons a:hover{
-    color: rgb(13, 69, 153);
+    color: #8ac0de;
 }
 
 .user-bar-photo {
