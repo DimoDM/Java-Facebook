@@ -35,31 +35,10 @@ public class DropBoxService {
         this.pictureRepository = pictureRepository;
     }
 
-//    String newFileRandomName = "asd.jpg";
-//    SharedLinkMetadata slm = this.client.sharing()
-//            .createSharedLinkWithSettings(newFileRandomName,
-//                    SharedLinkSettings.newBuilder().withRequestedVisibility(RequestedVisibility.PUBLIC).build());
-
     static String url;
 
     public String upload(MultipartFile multipartFile) throws DbxException, FileNotFoundException {
-        // Create Dropbox client
 
-//        FullAccount account = client.users().getCurrentAccount();
-//        System.out.println(account.getName().getDisplayName());
-//
-//        ListFolderResult result = client.files().listFolder("");
-//        while (true) {
-//            for (Metadata metadata : result.getEntries()) {
-//                System.out.println(metadata.getPathDisplay());
-//            }
-//
-//            if (!result.getHasMore()) {
-//                break;
-//            }
-//
-//            result = client.files().listFolderContinue(result.getCursor());
-//        }
 
         String randomName = RandomString.getAlphaNumericString(15);
 
@@ -91,13 +70,3 @@ public class DropBoxService {
         pictureRepository.save(picture);
     }
 }
-
-
-//    String newFileRandomName = "/theorems-next1.jpg";
-//    SharedLinkMetadata slm = this.client.sharing()
-//                    .createSharedLinkWithSettings(newFileRandomName,
-//                            SharedLinkSettings.newBuilder().withRequestedVisibility(RequestedVisibility.PUBLIC).build());
-//
-//            System.out.println(slm.getUrl());
-//
-//            savePicture(refactorURL(slm.getUrl()));

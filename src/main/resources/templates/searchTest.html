@@ -59,6 +59,50 @@
             </div>
         </li>
     </ul>
+
+    <ul th:if="${secondNameMatchUsers!=null}" th:each="user: ${secondNameMatchUsers}">
+        <li>
+
+            <div class="matches">
+
+                <img class="demoUser" style="float: left;" th:if="${user.getProfilePicture().getImageURL()!=null}"
+                     th:src="${user.getProfilePicture().getImageURL()}">
+
+                <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
+
+                <form action="/sendFriendRequest" method="post">
+                    <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
+
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--green" type="submit" value="Add friend" style="width: 30%; float: right;">Add Friend</button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+
+    <ul th:if="${matchByAnyOfNames!=null}" th:each="user: ${matchByAnyOfNames}">
+        <li>
+
+            <div class="matches">
+
+                <img class="demoUser" style="float: left;" th:if="${user.getProfilePicture().getImageURL()!=null}"
+                     th:src="${user.getProfilePicture().getImageURL()}">
+
+                <a th:text="${user.getFirstName()} + ' ' + ${user.getSecondName()}" th:href="@{${user.getId()}}"></a>
+
+                <form action="/sendFriendRequest" method="post">
+                    <input type="text" name="userId" th:value="${user.getId()}" style="display: none">
+
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--green" type="submit" value="Add friend" style="width: 30%; float: right;">Add Friend</button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+    
+
 </div>
 
 
